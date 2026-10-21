@@ -93,16 +93,18 @@
       // Populate 30 languages in #lang-select
       const langSelect = document.getElementById('lang-select');
       if (langSelect && this.store.languages) {
-        langSelect.innerHTML = Object.entries(this.store.languages).map(([code, meta]) => `
-          <option value="${code}" ${code === this.store.currentLanguage ? 'selected' : ''}>
-            ${meta.flag} ${meta.nativeName} (${meta.name})
+        langSelect.innerHTML = this.store.languages.map(lang => `
+          <option value="${lang.code}" ${lang.code === this.store.currentLanguage ? 'selected' : ''}>
+            ${lang.flag ? lang.flag + ' ' : ''}${lang.name}
           </option>
         `).join('');
 
         langSelect.addEventListener('change', (e) => {
-          this.store.setLanguage(e.target.value);
+          const selectedCode = e.target.value;
+          this.store.setLanguage(selectedCode);
           this.applyTranslations();
-          this.showToast(`Switched interface language to ${this.store.languages[e.target.value].name}`, 'info');
+          const langObj = this.store.languages.find(l => l.code === selectedCode);
+          this.showToast(`Switched interface language to ${langObj?.name || selectedCode.toUpperCase()}`, 'info');
         });
       }
 
@@ -125,39 +127,49 @@
       const t = (k) => this.store.t(k);
       
       const heroMain = document.getElementById('hero-main-title');
-      if (heroMain) heroMain.textContent = t('wholesale_sourcing');
+      if (heroMain) heroMain.textContent = t('wholesaleTab');
 
       const heroSubtitle = document.querySelector('.hero-subtitle');
-      if (heroSubtitle) heroSubtitle.textContent = t('hero_subtitle');
+      if (heroSubtitle) heroSubtitle.textContent = t('brandSub');
 
       const btnWholesale = document.getElementById('nav-btn-showcase');
       if (btnWholesale) {
         const full = btnWholesale.querySelector('.tab-label-full');
-        if (full) full.textContent = t('wholesale_sourcing');
+        if (full) full.textContent = t('wholesaleTab');
+        const compact = btnWholesale.querySelector('.tab-label-compact');
+        if (compact) compact.textContent = t('wholesaleTab');
       }
 
       const btnProcurement = document.getElementById('nav-btn-control-room');
       if (btnProcurement) {
         const full = btnProcurement.querySelector('.tab-label-full');
-        if (full) full.textContent = t('buyer_procurement');
+        if (full) full.textContent = t('procurementTab');
+        const compact = btnProcurement.querySelector('.tab-label-compact');
+        if (compact) compact.textContent = t('procurementTab');
       }
 
       const btnSupplier = document.getElementById('nav-btn-shopify-admin');
       if (btnSupplier) {
         const full = btnSupplier.querySelector('.tab-label-full');
-        if (full) full.textContent = t('supplier_hub');
+        if (full) full.textContent = t('supplierTab');
+        const compact = btnSupplier.querySelector('.tab-label-compact');
+        if (compact) compact.textContent = t('supplierTab');
       }
 
       const btnCorridors = document.getElementById('nav-btn-operations');
       if (btnCorridors) {
         const full = btnCorridors.querySelector('.tab-label-full');
-        if (full) full.textContent = t('corridors_radar');
+        if (full) full.textContent = t('corridorTab');
+        const compact = btnCorridors.querySelector('.tab-label-compact');
+        if (compact) compact.textContent = t('corridorTab');
       }
 
       const btnApi = document.getElementById('nav-btn-api');
       if (btnApi) {
         const full = btnApi.querySelector('.tab-label-full');
-        if (full) full.textContent = t('developer_api');
+        if (full) full.textContent = t('apiTab');
+        const compact = btnApi.querySelector('.tab-label-compact');
+        if (compact) compact.textContent = t('apiTab');
       }
     }
 
@@ -248,8 +260,12 @@
       const thumbs = document.querySelectorAll('.tray-thumb');
       thumbs.forEach(thumb => {
         thumb.addEventListener('click', () => {
-          thumbs.forEach(t => t.classList.remove('active'));
+          thumbs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
           thumb.classList.add('active');
+          thumb.setAttribute('aria-selected', 'true');
           const imgUrl = thumb.dataset.img;
           const heroImg = document.getElementById('showcase-main-img');
           if (heroImg && imgUrl) {
