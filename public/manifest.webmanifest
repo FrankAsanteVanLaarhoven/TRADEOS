@@ -1,0 +1,39 @@
+{
+  "name": "TradeOS Africa | Sovereign B2B Commerce OS",
+  "short_name": "TradeOS",
+  "description": "Enterprise B2B trade operating system engineered for Sub-Saharan Africa: verified suppliers, landed cost calculator, multi-tier PO approvals, and AfCFTA cross-border logistics.",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
+  "orientation": "any",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Wholesale Sourcing",
+      "short_name": "Sourcing",
+      "url": "/?view=showcase&source=pwa_shortcut",
+      "description": "Browse verified Pan-African manufacturers and components"
+    },
+    {
+      "name": "Buyer Procurement",
+      "short_name": "Procurement",
+      "url": "/?view=control-room&source=pwa_shortcut",
+      "description": "Review Purchase Orders and PAPSS escrow milestones"
+    },
+    {
+      "name": "Corridor Telematics",
+      "short_name": "Radar",
+      "url": "/?view=operations&source=pwa_shortcut",
+      "description": "Live GPS tracking and IoT temperature telemetry for shipments"
+    }
+  ]
+}

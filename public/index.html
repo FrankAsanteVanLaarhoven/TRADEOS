@@ -29,15 +29,21 @@
   <meta name="twitter:image" content="https://tradeos.africa/assets/corridor_logistics.jpg">
   <meta name="twitter:image:alt" content="TradeOS AfCFTA trade infrastructure and corridor logistics">
 
-  <!-- Custom Branded Favicon (Q04 Quality Gate) -->
+  <!-- Custom Branded Favicon (Q04 Quality Gate) & PWA Manifest -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#07090e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TradeOS">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/tokens.css?v=2.6.4">
-  <link rel="stylesheet" href="css/main.css?v=2.6.4">
-  <link rel="stylesheet" href="css/control-room.css?v=2.6.4">
-  <link rel="stylesheet" href="css/shopify-admin.css?v=2.6.4">
-  <link rel="stylesheet" href="css/operations.css?v=2.6.4">
+  <link rel="stylesheet" href="css/tokens.css?v=2.7.0">
+  <link rel="stylesheet" href="css/main.css?v=2.7.0">
+  <link rel="stylesheet" href="css/control-room.css?v=2.7.0">
+  <link rel="stylesheet" href="css/shopify-admin.css?v=2.7.0">
+  <link rel="stylesheet" href="css/operations.css?v=2.7.0">
 </head>
 <body>
 
@@ -112,6 +118,18 @@
             <option value="CNY">CNY (¥)</option>
           </select>
         </div>
+        <!-- Theme Switcher: Dark / Light / System -->
+        <div class="theme-toggle-wrap" role="group" aria-label="Color Theme Switcher">
+          <button type="button" class="theme-toggle-btn active" id="btn-theme-dark" data-theme-val="dark" aria-label="Dark Theme" title="Dark Theme">🌙</button>
+          <button type="button" class="theme-toggle-btn" id="btn-theme-light" data-theme-val="light" aria-label="Light Theme" title="Light Theme">☀️</button>
+          <button type="button" class="theme-toggle-btn" id="btn-theme-system" data-theme-val="system" aria-label="System Theme" title="System Theme">💻</button>
+        </div>
+
+        <!-- WebRTX Cryptographic Inspection Room Launch Button -->
+        <button type="button" class="btn-secondary" id="btn-open-webrtc-top" style="padding:4px 10px; font-size:11px; font-weight:700; color:var(--accent-cyan); border-color:rgba(56,189,248,0.3); display:inline-flex; align-items:center; gap:5px;" aria-label="Open WebRTC Inspection Room">
+          <span class="live-dot" style="width:6px; height:6px; background:var(--accent-red); box-shadow:0 0 6px var(--accent-red);" aria-hidden="true"></span>
+          <span>WebRTX Live</span>
+        </button>
       </div>
     </div>
   </aside>
@@ -1756,13 +1774,82 @@
     </div>
   </div>
 
+  <!-- Modal: Sovereign WebRTC / WebRTX Real-Time Inspection Room -->
+  <div class="modal-overlay" id="modal-webrtc-inspection" role="dialog" aria-modal="true" aria-labelledby="modal-webrtc-title">
+    <div class="modal-card" style="max-width:860px; width:95vw;">
+      <div class="modal-header">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="live-dot" style="background:#ef4444; box-shadow:0 0 10px #ef4444;" aria-hidden="true"></span>
+            <span style="font-size:11px; font-weight:700; color:var(--accent-red); text-transform:uppercase; letter-spacing:0.05em;">SOVEREIGN WEBRTX CRYPTOGRAPHIC INSPECTION</span>
+          </div>
+          <h3 id="modal-webrtc-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Factory Gate Live Stream & B2B Telematics</h3>
+        </div>
+        <button class="modal-close-btn" id="btn-close-webrtc" aria-label="Close inspection room">&times;</button>
+      </div>
+      
+      <div class="webrtc-stage" id="webrtc-stage-container">
+        <video id="webrtc-remote-video" class="webrtc-remote-feed" autoplay playsinline muted></video>
+        <div class="webrtc-pip">
+          <video id="webrtc-local-video" autoplay playsinline muted></video>
+        </div>
+        <div class="webrtc-hud-overlay">
+          <div class="webrtc-badge">
+            <span style="color:var(--accent-cyan); font-weight:700;">HUB:</span> Lagos LFZ Mega-Hub (Lane 04)
+          </div>
+          <div class="webrtc-badge" id="webrtc-starlink-ping">
+            <span style="color:var(--accent-emerald); font-weight:700;">STARLINK:</span> 24ms • 1080p60 • AV1
+          </div>
+          <div class="webrtc-badge">
+            <span style="color:var(--accent-amber); font-weight:700;">TEMP/HUM:</span> 24.2°C • 56% RH
+          </div>
+        </div>
+        <div class="webrtc-controls-bar">
+          <button type="button" class="webrtc-ctrl-btn" id="btn-webrtc-toggle-cam" title="Toggle Camera" aria-label="Toggle Camera">📷</button>
+          <button type="button" class="webrtc-ctrl-btn" id="btn-webrtc-toggle-mic" title="Toggle Microphone" aria-label="Toggle Microphone">🎙️</button>
+          <button type="button" class="webrtc-ctrl-btn btn-sign" id="btn-webrtc-sign" title="Sign Cryptographic Seal" aria-label="Sign Cryptographic Seal">✍️ Sign Cryptographic Seal</button>
+          <button type="button" class="webrtc-ctrl-btn active-danger" id="btn-webrtc-end" title="End Inspection Call" aria-label="End Inspection Call">✕</button>
+        </div>
+      </div>
+      
+      <div id="webrtc-signature-result" style="margin-top:12px; display:none; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius-md); padding:10px; font-size:11px; font-family:var(--font-mono); color:var(--accent-emerald);">
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Native Bottom Navigation Bar (Q18 Mobile Ready) -->
+  <nav class="mobile-bottom-nav" role="navigation" aria-label="Mobile Navigation">
+    <button class="mobile-nav-item active" data-view="showcase" aria-label="Wholesale Sourcing">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+      <span>Wholesale</span>
+    </button>
+    <button class="mobile-nav-item" data-view="control-room" aria-label="Buyer Procurement">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Procure</span>
+    </button>
+    <button class="mobile-nav-item" data-view="shopify-admin" aria-label="Supplier Hub">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span>Supplier</span>
+    </button>
+    <button class="mobile-nav-item" data-view="operations" aria-label="Corridor Radar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      <span>Radar</span>
+    </button>
+    <button class="mobile-nav-item" data-view="api" aria-label="Developer API">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      <span>API</span>
+    </button>
+  </nav>
+
   <!-- Toast Notification Floating Container -->
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Application Scripts -->
-  <script src="js/store.js?v=2.6.4"></script>
-  <script src="js/landed-cost.js?v=2.6.4"></script>
-  <script src="js/motion.js?v=2.6.4"></script>
-  <script src="js/app.js?v=2.6.4"></script>
+  <script src="js/store.js?v=2.7.0"></script>
+  <script src="js/landed-cost.js?v=2.7.0"></script>
+  <script src="js/motion.js?v=2.7.0"></script>
+  <script src="js/tradeos-webrtc.js?v=2.7.0"></script>
+  <script src="js/tradeos-sdk.js?v=2.7.0"></script>
+  <script src="js/app.js?v=2.7.0"></script>
 </body>
 </html>

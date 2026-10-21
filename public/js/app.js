@@ -25,6 +25,8 @@
     init() {
       this.setupWorldClocks();
       this.setupLocalizationAndCurrency();
+      this.setupThemeSwitcher();
+      this.setupMobileNavigation();
       this.setupNavigation();
       this.setupHardwareVisualizer();
       this.setupCalculator();
@@ -33,6 +35,8 @@
       this.setupSupplierHubSubtabs();
       this.setupOperations();
       this.setupGlobalMultiModalRadar();
+      this.setupWebRTCInspection();
+      this.setupPWA();
       this.setupApiExplorer();
       this.setupModals();
       this.setupStoreSubscriptions();
@@ -174,6 +178,139 @@
     }
 
     /* ------------------------------------------------------------------------
+       Theme Switcher (Dark / Light / System)
+       ------------------------------------------------------------------------ */
+    setupThemeSwitcher() {
+      const updateButtons = (theme) => {
+        document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.themeVal === theme);
+        });
+      };
+
+      document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.dataset.themeVal;
+          if (val) {
+            this.store.setTheme(val);
+            this.showToast(`Switched theme to ${val.toUpperCase()}`, 'info');
+          }
+        });
+      });
+
+      updateButtons(this.store.currentTheme);
+    }
+
+    /* ------------------------------------------------------------------------
+       Mobile Native Navigation
+       ------------------------------------------------------------------------ */
+    setupMobileNavigation() {
+      document.querySelectorAll('.mobile-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const viewId = btn.dataset.view;
+          if (viewId) {
+            this.switchView(viewId);
+          }
+        });
+      });
+    }
+
+    /* ------------------------------------------------------------------------
+       WebRTX Sovereign Real-Time Inspection Room
+       ------------------------------------------------------------------------ */
+    setupWebRTCInspection() {
+      const modal = document.getElementById('modal-webrtc-inspection');
+      const openBtn = document.getElementById('btn-open-webrtc-top');
+      const closeBtn = document.getElementById('btn-close-webrtc');
+      const endBtn = document.getElementById('btn-webrtc-end');
+      const toggleCamBtn = document.getElementById('btn-webrtc-toggle-cam');
+      const toggleMicBtn = document.getElementById('btn-webrtc-toggle-mic');
+      const signBtn = document.getElementById('btn-webrtc-sign');
+      const signResult = document.getElementById('webrtc-signature-result');
+
+      const startCall = () => {
+        if (modal) modal.classList.add('open');
+        if (window.TradeOSWebRTX) {
+          window.TradeOSWebRTX.startSyntheticStream('webrtc-remote-video');
+        }
+      };
+
+      const endCall = () => {
+        if (modal) modal.classList.remove('open');
+        if (window.TradeOSWebRTX) {
+          window.TradeOSWebRTX.stop();
+        }
+        if (signResult) signResult.style.display = 'none';
+      };
+
+      if (openBtn) openBtn.addEventListener('click', startCall);
+      if (closeBtn) closeBtn.addEventListener('click', endCall);
+      if (endBtn) endBtn.addEventListener('click', endCall);
+
+      // Also allow launching WebRTC from any .btn-launch-webrtc button
+      document.querySelectorAll('.btn-launch-webrtc').forEach(btn => {
+        btn.addEventListener('click', startCall);
+      });
+
+      if (toggleCamBtn) {
+        toggleCamBtn.addEventListener('click', () => {
+          if (window.TradeOSWebRTX) {
+            const enabled = window.TradeOSWebRTX.toggleVideo();
+            toggleCamBtn.classList.toggle('active-danger', !enabled);
+          }
+        });
+      }
+
+      if (toggleMicBtn) {
+        toggleMicBtn.addEventListener('click', () => {
+          if (window.TradeOSWebRTX) {
+            const enabled = window.TradeOSWebRTX.toggleAudio();
+            toggleMicBtn.classList.toggle('active-danger', !enabled);
+          }
+        });
+      }
+
+      if (signBtn) {
+        signBtn.addEventListener('click', async () => {
+          if (window.TradeOSWebRTX) {
+            const proof = await window.TradeOSWebRTX.signCryptographicInspection({
+              inspector: "Kwame Asante (SONCAP / AfCFTA Accredited)",
+              station: "Lagos Free Zone Inspection Bay 04",
+              trackingNumber: this.store.activeTrackingNumber
+            });
+            if (signResult) {
+              signResult.style.display = 'block';
+              signResult.innerHTML = `
+                <div style="font-weight:700; color:var(--accent-emerald); margin-bottom:4px;">✓ CRYPTOGRAPHIC INSPECTION SEAL ATTESTED</div>
+                <div>Hash: ${proof.hash}</div>
+                <div>Inspector: ${proof.inspector} | Time: ${proof.timestamp}</div>
+                <div style="color:var(--text-tertiary); font-size:10px; margin-top:4px;">Recorded to TradeOS Immutable AfCFTA Transit Ledger</div>
+              `;
+            }
+            this.showToast("Inspection cryptographically attested & sealed!", "success");
+            this.store.logWebhook("tradeos/webrtc.seal_signed", `Inspection seal attested for ${this.store.activeTrackingNumber}`);
+          }
+        });
+      }
+    }
+
+    /* ------------------------------------------------------------------------
+       PWA Service Worker Registration
+       ------------------------------------------------------------------------ */
+    setupPWA() {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(() => {
+              // Service Worker registered
+            })
+            .catch(() => {
+              // Service worker registration skipped
+            });
+        });
+      }
+    }
+
+    /* ------------------------------------------------------------------------
        Navigation & Routing
        ------------------------------------------------------------------------ */
     setupNavigation() {
@@ -199,9 +336,12 @@
     switchView(viewId) {
       this.store.activeView = viewId;
 
-      // Update Nav buttons
+      // Update Nav buttons (desktop & mobile)
       document.querySelectorAll('.nav-tab-btn').forEach(tab => {
         tab.classList.toggle('active', tab.dataset.view === viewId);
+      });
+      document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.view === viewId);
       });
 
       // Update Panels
@@ -1648,6 +1788,10 @@ Digital Signature:
           this.renderUberHaulageFleet();
         } else if (event === 'FBT_UPDATED') {
           this.renderFBTWarehouses();
+        } else if (event === 'THEME_CHANGED') {
+          document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.themeVal === data);
+          });
         } else if (event === 'PRODUCT_ADDED' || event === 'PRODUCT_DELETED' || event === 'STOCK_ADJUSTED' || event === 'CATALOG_BULK_IMPORTED') {
           this.renderProducts();
         }

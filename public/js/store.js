@@ -695,6 +695,9 @@
       this.languages = LANGUAGES;
       this.currentLanguage = 'en';
 
+      this.currentTheme = 'dark';
+      this.initTheme();
+
       this.activeCorridor = "NG_GH";
       this.activeTrackingNumber = "TRK-AF-89412";
       this.activeView = "showcase";
@@ -839,6 +842,40 @@
         return `${cur.symbol}${Math.round(converted).toLocaleString()}`;
       }
       return `${cur.symbol}${converted.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    // ------------------------------------------------------------------------
+    // DARK / LIGHT / SYSTEM THEME ENGINE
+    // ------------------------------------------------------------------------
+    initTheme() {
+      try {
+        const saved = localStorage.getItem('tradeos_theme');
+        if (saved && ['dark', 'light', 'system'].includes(saved)) {
+          this.currentTheme = saved;
+        } else {
+          this.currentTheme = 'dark';
+        }
+      } catch (e) {
+        this.currentTheme = 'dark';
+      }
+      this.applyTheme(this.currentTheme);
+    }
+
+    setTheme(theme) {
+      if (!['dark', 'light', 'system'].includes(theme)) return;
+      this.currentTheme = theme;
+      try {
+        localStorage.setItem('tradeos_theme', theme);
+      } catch (e) {}
+      this.applyTheme(theme);
+      this.logWebhook("tradeos/theme.switch", `Theme set to: ${theme.toUpperCase()}`);
+      this.notify("THEME_CHANGED", theme);
+    }
+
+    applyTheme(theme) {
+      if (typeof document !== 'undefined' && document.documentElement) {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
     }
 
     // ------------------------------------------------------------------------
