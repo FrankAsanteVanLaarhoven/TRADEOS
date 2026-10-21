@@ -1818,11 +1818,17 @@ Digital Signature:
       const container = document.getElementById('toast-container');
       if (!container) return;
 
+      // Prevent stacking duplicate toasts with the identical message
+      const existing = Array.from(container.querySelectorAll('.toast'));
+      const duplicate = existing.find(t => t.textContent.includes(message));
+      if (duplicate) return;
+
       const toast = document.createElement('div');
       toast.className = `toast toast-${type}`;
+      const icon = type === 'success' ? '✓' : (type === 'warning' ? '▲' : 'ℹ');
       toast.innerHTML = `
-        <span style="font-weight:700;">${type === 'success' ? '✓' : (type === 'warning' ? '▲' : 'ℹ')}</span>
-        <span>${message}</span>
+        <span class="toast-icon">${icon}</span>
+        <span class="toast-msg">${message}</span>
       `;
 
       container.appendChild(toast);
