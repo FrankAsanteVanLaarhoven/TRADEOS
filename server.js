@@ -766,13 +766,14 @@ const server = http.createServer(async (req, res) => {
   // --------------------------------------------------------------------------
   // API Route: Health & Operational Diagnostics
   // --------------------------------------------------------------------------
-  if (urlPath === '/api/v1/health') {
+  if (urlPath === '/health' || urlPath === '/healthz' || urlPath === '/api/v1/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: "HEALTHY",
       service: "TradeOS Africa Core Engine",
-      version: "v2.5.0-native-catalog",
-      environment: "production-hardened",
+      version: "v2.6.3-deployment-ready",
+      environment: process.env.NODE_ENV || "production",
+      uptime: process.uptime(),
       timestamp: new Date().toISOString(),
       catalogEngine: "TradeOS Native B2B Engine (Self-Hosted)",
       corridors: {

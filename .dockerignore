@@ -1,0 +1,12 @@
+.git
+.github
+.agents
+.gemini
+*.log
+*.tmp
+node_modules
+npm-debug.log*
+.DS_Store
+.env*
+scratch/
+bin/

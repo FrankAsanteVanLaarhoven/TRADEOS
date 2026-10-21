@@ -494,6 +494,8 @@ func main() {
 	mux := http.NewServeMux()
 
 	// REST & GraphQL API Endpoints
+	mux.HandleFunc("/health", handleHealth)
+	mux.HandleFunc("/healthz", handleHealth)
 	mux.HandleFunc("/api/v1/health", handleHealth)
 	mux.HandleFunc("/api/v1/products", handleProducts)
 	mux.HandleFunc("/api/v1/landed-cost", handleLandedCost)
