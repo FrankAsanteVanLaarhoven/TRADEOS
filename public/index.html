@@ -33,11 +33,11 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/tokens.css?v=2.4.2">
-  <link rel="stylesheet" href="css/main.css?v=2.4.2">
-  <link rel="stylesheet" href="css/control-room.css?v=2.4.2">
-  <link rel="stylesheet" href="css/shopify-admin.css?v=2.4.2">
-  <link rel="stylesheet" href="css/operations.css?v=2.4.2">
+  <link rel="stylesheet" href="css/tokens.css?v=2.5.0">
+  <link rel="stylesheet" href="css/main.css?v=2.5.0">
+  <link rel="stylesheet" href="css/control-room.css?v=2.5.0">
+  <link rel="stylesheet" href="css/shopify-admin.css?v=2.5.0">
+  <link rel="stylesheet" href="css/operations.css?v=2.5.0">
 </head>
 <body>
 
@@ -74,7 +74,7 @@
         </button>
         <button class="nav-tab-btn" data-view="shopify-admin" id="nav-btn-shopify-admin">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          <span class="tab-label-full">Supplier Portal (Shopify ERP)</span>
+          <span class="tab-label-full">Supplier Hub & Catalog</span>
           <span class="tab-label-compact">Supplier Hub</span>
         </button>
         <button class="nav-tab-btn" data-view="operations" id="nav-btn-operations">
@@ -710,17 +710,39 @@
     <!-- ====================================================================
          VIEW 3: SUPPLIER COMMERCE HUB — SHOPIFY & KEYSTONE B2B ADMIN
          ==================================================================== -->
+    <!-- ====================================================================
+         VIEW 3: SUPPLIER COMMERCE HUB — TRADEOS NATIVE CATALOG & INVENTORY
+         ==================================================================== -->
     <section class="view-panel" id="view-shopify-admin" aria-labelledby="supplier-main-title">
       <div class="container">
         
         <div class="supplier-portal-header">
-          <div class="workspace-badge">SUPPLIER PORTAL: HELIOS ALUMINUM FAB LTD (LAGOS, NIGERIA)</div>
+          <div class="workspace-badge">SUPPLIER WORKSPACE: HELIOS FAB & AFRICAN INDUSTRIAL COOPERATIVE</div>
+          
+          <!-- Engine Selector Tabs -->
+          <div class="catalog-engine-switcher" role="tablist" aria-label="Catalog Engine Selection" style="margin-top:var(--sp-3);">
+            <button class="engine-tab-btn active" id="btn-engine-native" data-engine="native">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              TradeOS Native Catalog (Direct African Sourcing)
+            </button>
+            <button class="engine-tab-btn" id="btn-engine-shopify" data-engine="shopify">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 7.5L16 2 4.5 4.5 3 20.5 17 23l4-2.5z"/></svg>
+              Shopify Enterprise Connector (Mirror)
+            </button>
+          </div>
+
           <div class="workspace-title-row">
             <div>
-              <h1 id="supplier-main-title">Supplier Operations & B2B Catalog</h1>
-              <p class="workspace-meta">Enterprise B2B Catalog Synchronization • Real-Time Stock & Multi-Tier Wholesale Pricing</p>
+              <h1 id="supplier-main-title">TradeOS Native Supplier Hub & B2B Catalog</h1>
+              <p class="workspace-meta">Direct African Manufacturer Inventory • Real-Time Stock, Multi-Tier B2B Pricing & AfCFTA Rules of Origin (No Shopify Required)</p>
             </div>
-            <div style="display:flex; gap:var(--sp-3);">
+            <div style="display:flex; gap:var(--sp-2); flex-wrap:wrap;">
+              <button class="btn-secondary" id="btn-open-bulk-import">
+                Bulk Import (CSV / JSON)
+              </button>
+              <button class="btn-secondary" id="btn-export-catalog">
+                Export CSV
+              </button>
               <button class="btn-secondary" id="btn-open-quote-modal">
                 Prepare RFQ Quote
               </button>
@@ -734,32 +756,31 @@
         <!-- Supplier Store Status Bar -->
         <div class="supplier-status-strip">
           <div class="supplier-store-meta">
-            <span class="shopify-badge">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 7.5L16 2 4.5 4.5 3 20.5 17 23l4-2.5z"/></svg>
-              Shopify Enterprise Connected
+            <span class="engine-badge-native" id="catalog-engine-badge">
+              TradeOS Native Sovereign Engine
             </span>
             <div>
-              <div class="store-name-text">Helios Fab Storefront (Store ID: #SHOPIFY-NG-4819)</div>
-              <div style="font-size:11px; color:var(--accent-emerald);">✓ AfCFTA Tier-1 Verified Manufacturer • API Webhooks Active</div>
+              <div class="store-name-text" id="supplier-store-title">Helios Aluminum Fab Ltd (Lagos Hub) • Native B2B Engine</div>
+              <div id="supplier-store-desc" style="font-size:11px; color:var(--accent-emerald);">✓ Sovereign African Cloud Catalog • Direct Wholesale Inventory (No Shopify Required) • AfCFTA Certified</div>
             </div>
           </div>
 
           <div class="supplier-sync-stats">
             <div class="sync-stat-item">
-              <span class="sync-stat-label">Catalog Synced</span>
-              <span class="sync-stat-val" id="catalog-total-count">4 Products Synced</span>
+              <span class="sync-stat-label">Catalog SKUs</span>
+              <span class="sync-stat-val" id="catalog-total-count">5 Products Synced</span>
             </div>
             <div class="sync-stat-item">
-              <span class="sync-stat-label">B2B Price Lists</span>
-              <span class="sync-stat-val">3 Tiers</span>
+              <span class="sync-stat-label">Wholesale Pricing</span>
+              <span class="sync-stat-val">Volume Tiered</span>
             </div>
             <div class="sync-stat-item">
-              <span class="sync-stat-label">Open RFQs</span>
+              <span class="sync-stat-label">AfCFTA Origin</span>
+              <span class="sync-stat-val" style="color:var(--accent-emerald);">100% Qualified</span>
+            </div>
+            <div class="sync-stat-item">
+              <span class="sync-stat-label">Open Buyer RFQs</span>
               <span class="sync-stat-val" style="color:var(--accent-cyan);">7 Matched</span>
-            </div>
-            <div class="sync-stat-item">
-              <span class="sync-stat-label">Orders to Fulfil</span>
-              <span class="sync-stat-val">2 Active</span>
             </div>
           </div>
         </div>
@@ -768,7 +789,7 @@
         <div class="incoming-rfq-banner">
           <div class="rfq-match-text">
             <h4>Incoming RFQ: 5,000 Solar Mounting Brackets — Accra, Ghana</h4>
-            <p>Your suggested quote: $18,400 ($3.68/unit) • Lead time: 21 days • Payment: 30% deposit, 70% delivery</p>
+            <p>Your suggested quote: $18,400 ($3.68/unit) • Lead time: 21 days • Payment: 30% deposit, 70% delivery via PAPSS</p>
           </div>
           <div style="display:flex; gap:10px;">
             <button class="btn-accent" onclick="window.TradeOS.openModal('modal-submit-quote')">
@@ -783,7 +804,7 @@
         <!-- Supplier Toolbar with View Mode Toggle -->
         <div class="supplier-toolbar">
           <div class="toolbar-search-group">
-            <input type="text" id="catalog-search-input" class="input-text" placeholder="Search by SKU, title, or category..." />
+            <input type="text" id="catalog-search-input" class="input-text" placeholder="Search native catalog by SKU, title, category, or origin..." />
           </div>
 
           <div class="view-mode-toggle">
@@ -814,7 +835,7 @@
                 <th scope="col">Inventory Level</th>
                 <th scope="col">B2B Price</th>
                 <th scope="col">MOQ</th>
-                <th scope="col">Lead Time</th>
+                <th scope="col">Origin & Lead Time</th>
                 <th scope="col">AfCFTA Rule</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -825,15 +846,15 @@
           </table>
         </div>
 
-        <!-- Live Shopify Admin GraphQL & Webhook Terminal Console -->
+        <!-- Live Platform Telemetry & Catalog Event Console -->
         <div class="graphql-terminal" style="margin-bottom:var(--sp-12);">
           <div class="terminal-header">
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="pulsing-dot"></span>
-              <strong>SHOPIFY ADMIN GRAPHQL & WEBHOOK STREAM (v2026-10)</strong>
+              <strong id="terminal-title">TRADEOS NATIVE CATALOG & EVENT BUS (v2.5.0-SOVEREIGN)</strong>
             </div>
             <button class="btn-secondary" id="btn-test-webhook" style="padding:2px 8px; font-size:10px;">
-              Test Webhook Ping
+              Test Diagnostic Ping
             </button>
           </div>
           <div class="terminal-logs" id="webhook-terminal-logs">
@@ -846,19 +867,23 @@
 
 
     <!-- ====================================================================
-         VIEW 4: AFCFTA RADAR, LOGISTICS & ESCROW OPERATIONS
+         VIEW 4: AFCFTA RADAR, END-TO-END CORRIDOR LOGISTICS & ESCROW
          ==================================================================== -->
     <section class="view-panel" id="view-operations" aria-labelledby="operations-main-title">
       <div class="container">
         
         <div class="operations-header">
-          <div class="workspace-badge">PAN-AFRICAN TRADE INFRASTRUCTURE</div>
+          <div class="workspace-badge">PAN-AFRICAN CROSS-BORDER LOGISTICS BACKBONE</div>
           <div class="workspace-title-row">
             <div>
-              <h1 id="operations-main-title">AfCFTA Corridor Radar & Settlement</h1>
-              <p class="workspace-meta">Real-time Cross-Border Freight Tracking, Port Clearance & Escrow Milestones</p>
+              <h1 id="operations-main-title">End-to-End AfCFTA Corridor Radar & Telematics</h1>
+              <p class="workspace-meta">Real-time Cross-Border Freight Tracking, IoT Container Telematics, Joint Border Single Window & Smart Escrow Milestones</p>
             </div>
-            <div>
+            <div style="display:flex; gap:var(--sp-2); flex-wrap:wrap;">
+              <button class="btn-secondary" id="btn-view-waybill">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Digital e-Waybill & CoO
+              </button>
               <button class="btn-primary" id="btn-advance-stage">
                 Advance Transit Milestone
               </button>
@@ -866,7 +891,22 @@
           </div>
         </div>
 
-        <!-- Corridor Selector Bar -->
+        <!-- Consignment Tracking Search Bar with Live Presets -->
+        <div class="consignment-search-bar">
+          <div class="consignment-input-group">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="consignment-search-input" class="input-text" placeholder="Enter Consignment Tracking # (e.g. TRK-AF-89412)" value="TRK-AF-89412" style="font-family:var(--font-mono); font-size:13px;" />
+            <button class="btn-secondary" id="btn-track-consignment" style="padding:6px 14px; font-size:12px;">Track</button>
+          </div>
+          <div class="consignment-presets">
+            <span style="font-size:11px; color:var(--text-tertiary); font-weight:600;">ACTIVE CARGO PRESETS:</span>
+            <button class="preset-chip active" data-tracking="TRK-AF-89412">TRK-AF-89412 (NG ⇄ GH)</button>
+            <button class="preset-chip" data-tracking="TRK-AF-55021">TRK-AF-55021 (KE ⇄ UG)</button>
+            <button class="preset-chip" data-tracking="TRK-AF-33908">TRK-AF-33908 (ZA ⇄ ZM)</button>
+          </div>
+        </div>
+
+        <!-- 4-Corridor Selector Bar -->
         <div class="corridor-selector-bar">
           <button class="corridor-pill-btn active" data-corridor="NG_GH">
             <span>●</span> Nigeria ⇄ Ghana (Lagos / Tema)
@@ -877,6 +917,45 @@
           <button class="corridor-pill-btn" data-corridor="ZA_ZM">
             <span>●</span> South Africa ⇄ Zambia (JHB / Lusaka)
           </button>
+          <button class="corridor-pill-btn" data-corridor="SN_ML">
+            <span>●</span> Senegal ⇄ Mali (Dakar / Bamako)
+          </button>
+        </div>
+
+        <!-- Telematics Sensor HUD Cards -->
+        <div class="telematics-hud-grid">
+          <div class="telematics-card">
+            <div class="telematics-label">
+              <span>Active Consignment</span>
+              <span class="pulsing-dot"></span>
+            </div>
+            <div class="telematics-value" id="telem-consignment-id">TRK-AF-89412</div>
+            <div class="telematics-sub" id="telem-po-num">PO #PO-2026-8812 • CIF Tema Port</div>
+          </div>
+          <div class="telematics-card">
+            <div class="telematics-label">
+              <span>GPS Telematics Radar</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            </div>
+            <div class="telematics-value" id="telem-coords" style="font-size:13px; color:var(--accent-cyan);">6.2415° N, 2.7150° E</div>
+            <div class="telematics-sub" id="telem-location-name">Seme-Krake / Gulf of Guinea Feeder</div>
+          </div>
+          <div class="telematics-card">
+            <div class="telematics-label">
+              <span>Cargo Sensors (IoT)</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+            </div>
+            <div class="telematics-value" id="telem-temp" style="color:var(--accent-emerald);">24.5°C • 58% RH</div>
+            <div class="telematics-sub" id="telem-speed">Speed: 14.8 Knots • Nominal</div>
+          </div>
+          <div class="telematics-card">
+            <div class="telematics-label">
+              <span>Cryptographic E-Seal</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <div class="telematics-value" id="telem-seal-status" style="font-size:12px; color:#34d399;">INTACT • SECURED</div>
+            <div class="telematics-sub" id="telem-seal-id">#E-SEAL-NGGH-9982</div>
+          </div>
         </div>
 
         <!-- Corridor Live Map Banner -->
@@ -909,14 +988,14 @@
           </div>
         </div>
 
-        <!-- 9-Stage Verifiable Timeline -->
+        <!-- Verifiable End-to-End Milestone Lifecycle -->
         <div class="timeline-section">
           <div class="timeline-header">
             <div>
-              <h3 style="font-size:var(--text-lg); color:#ffffff;">Order #PO-2026-8812 Verifiable Lifecycle</h3>
-              <p style="font-size:var(--text-xs); color:var(--text-secondary);">5,000 Solar Mounting Brackets: Lagos Factory ➔ Tema Port ➔ Accra Warehouse</p>
+              <h3 id="timeline-consignment-title" style="font-size:var(--text-lg); color:#ffffff;">Order #PO-2026-8812 Verifiable Lifecycle</h3>
+              <p id="timeline-consignment-desc" style="font-size:var(--text-xs); color:var(--text-secondary);">5,000 Solar Mounting Brackets: Lagos Factory ➔ Tema Port ➔ Accra Warehouse</p>
             </div>
-            <span style="font-size:11px; font-weight:700; color:var(--accent-cyan); background:rgba(56,189,248,0.15); padding:4px 10px; border-radius:var(--radius-full);">
+            <span id="timeline-status-badge" style="font-size:11px; font-weight:700; color:var(--accent-cyan); background:rgba(56,189,248,0.15); padding:4px 10px; border-radius:var(--radius-full);">
               In Transit • Gulf of Guinea
             </span>
           </div>
@@ -1045,16 +1124,16 @@
     </div>
   </footer>
 
-  <!-- Modal: Add Product to Shopify Catalog -->
+  <!-- Modal: Add Product to Native Catalog -->
   <div class="modal-overlay" id="modal-add-product" role="dialog" aria-modal="true" aria-labelledby="modal-add-prod-title">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 id="modal-add-prod-title" style="font-size:var(--text-lg); color:#ffffff;">+ Add New Product to B2B Catalog</h3>
+        <h3 id="modal-add-prod-title" style="font-size:var(--text-lg); color:#ffffff;">+ Add New Product to Native B2B Catalog</h3>
         <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
       </div>
       <form id="form-add-product">
         <div class="input-group" style="margin-bottom:var(--sp-3);">
-          <label class="input-label" for="add-prod-title">Product Name</label>
+          <label class="input-label" for="add-prod-title">Product Name / Commodity</label>
           <input type="text" id="add-prod-title" name="title" class="input-text" required placeholder="e.g. 600W Bifacial Solar PV Module" />
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-3);">
@@ -1068,7 +1147,9 @@
               <option value="Solar Infrastructure">Solar Infrastructure</option>
               <option value="Power Electronics">Power Electronics</option>
               <option value="Energy Storage">Energy Storage</option>
+              <option value="Agro Commodities">Agro Commodities</option>
               <option value="Electrical Components">Electrical Components</option>
+              <option value="Industrial Materials">Industrial Materials</option>
             </select>
           </div>
         </div>
@@ -1086,6 +1167,22 @@
             <input type="number" id="add-prod-moq" name="moq" class="input-text" required value="50" min="1" />
           </div>
         </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-3);">
+          <div class="input-group">
+            <label class="input-label" for="add-prod-origin-country">Manufacturing Country</label>
+            <select id="add-prod-origin-country" name="originCountry" class="select-custom">
+              <option value="Nigeria">Nigeria (Lagos Hub)</option>
+              <option value="Ghana">Ghana (Tema Free Zone)</option>
+              <option value="Kenya">Kenya (Mombasa / Nairobi)</option>
+              <option value="South Africa">South Africa (JHB / Durban)</option>
+              <option value="Senegal">Senegal (Dakar)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="add-prod-origin-city">Dispatch Facility</label>
+            <input type="text" id="add-prod-origin-city" name="originCity" class="input-text" required value="Ikeja Industrial Estate" />
+          </div>
+        </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-4);">
           <div class="input-group">
             <label class="input-label" for="add-prod-lead">Lead Time (Days)</label>
@@ -1098,11 +1195,125 @@
         </div>
         <div style="display:flex; justify-content:flex-end; gap:var(--sp-3);">
           <button type="button" class="btn-secondary modal-backdrop-close">Cancel</button>
-          <button type="submit" class="btn-primary">Publish to Shopify B2B Store</button>
+          <button type="submit" class="btn-primary">Publish to Native TradeOS Catalog</button>
         </div>
       </form>
     </div>
   </div>
+
+  <!-- Modal: Native Bulk Catalog Import (CSV / JSON) -->
+  <div class="modal-overlay" id="modal-bulk-import" role="dialog" aria-modal="true" aria-labelledby="modal-bulk-title">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:var(--accent-cyan); text-transform:uppercase;">NATIVE SUPPLIER INGESTION</span>
+          <h3 id="modal-bulk-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Bulk Catalog Import (No Shopify Required)</h3>
+        </div>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div style="font-size:12px; color:var(--text-secondary); margin-bottom:var(--sp-4);">
+        Paste CSV rows from Excel/Google Sheets, or paste JSON. Direct native ingestion creates instant B2B SKUs without third-party dependencies.
+        <span class="sample-csv-pill" id="btn-load-sample-csv">Load Sample CSV Template</span>
+      </div>
+
+      <div class="bulk-import-box">
+        <label for="bulk-import-input" style="font-size:11px; color:var(--text-tertiary); display:block; text-align:left; font-weight:600;">CSV OR JSON DATA STREAM:</label>
+        <textarea id="bulk-import-input" class="bulk-import-textarea" placeholder="sku,title,category,stock,b2bPrice,basePrice,moq,leadTimeDays,originCountry,afcfta&#10;SOL-CBL-4MM,Double Insulated 4mm Solar Cable (100m),Solar Infrastructure,2500,68.00,85.00,10,7,Nigeria,true&#10;AGR-SESAME-01,Organic Natural White Sesame Seeds (Metric Ton),Agro Commodities,120,1850.00,2100.00,1,10,Nigeria,true"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span id="bulk-import-status" style="font-size:12px; color:var(--text-muted); font-family:var(--font-mono);">Ready to ingest</span>
+        <div style="display:flex; gap:var(--sp-2);">
+          <button type="button" class="btn-secondary modal-backdrop-close">Cancel</button>
+          <button type="button" class="btn-primary" id="btn-execute-bulk-import">Run Direct Catalog Ingest</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Official AfCFTA Digital Waybill & Electronic CoO -->
+  <div class="modal-overlay" id="modal-waybill" role="dialog" aria-modal="true" aria-labelledby="modal-waybill-title">
+    <div class="modal-card" style="max-width:760px; max-height:90vh; overflow-y:auto;">
+      <div class="modal-header">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:var(--accent-emerald); text-transform:uppercase;">AFRICAN CONTINENTAL FREE TRADE AREA (AfCFTA)</span>
+          <h3 id="modal-waybill-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Digital Electronic Consignment Note & Waybill</h3>
+        </div>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="waybill-sheet">
+        <div class="waybill-header-row">
+          <div>
+            <div style="font-size:18px; font-weight:800; color:#ffffff;">TRADEOS CONSIGNMENT WAYBILL</div>
+            <div id="wb-number" style="font-family:var(--font-mono); font-size:12px; color:var(--accent-cyan); margin-top:2px;">AWB-TRK-AF-89412</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Single Window Verifiable Transit Manifest</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="display:inline-block; padding:4px 10px; background:rgba(16,185,129,0.15); border:1px solid #10b981; border-radius:4px; font-size:11px; font-weight:800; color:#34d399;">
+              ✓ AfCFTA PREFERENTIAL ORIGIN (0% TARIFF)
+            </div>
+            <div id="wb-cert" style="font-size:11px; color:var(--text-secondary); margin-top:4px; font-family:var(--font-mono);">CoO #NG-CoO-2026-4819</div>
+          </div>
+        </div>
+
+        <div class="waybill-grid-2col">
+          <div class="waybill-box">
+            <strong>1. CONSIGNOR / EXPORTER</strong>
+            <div id="wb-shipper-name" style="font-weight:700; color:#ffffff;">Helios Aluminum Fab Ltd</div>
+            <div id="wb-shipper-address" style="color:var(--text-secondary); margin-top:2px;">Ikeja Industrial Estate, Lagos, Nigeria</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">LEI: 984500A412F8812E90 • SONCAP Certified</div>
+          </div>
+          <div class="waybill-box">
+            <strong>2. CONSIGNEE / IMPORTER</strong>
+            <div id="wb-consignee-name" style="font-weight:700; color:#ffffff;">GoldCoast Solar EPC Ltd</div>
+            <div id="wb-consignee-address" style="color:var(--text-secondary); margin-top:2px;">Tema Free Zone / Accra, Ghana</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">TIN: GH-TIN-990231 • GRA Authorized</div>
+          </div>
+        </div>
+
+        <div class="waybill-grid-2col">
+          <div class="waybill-box">
+            <strong>3. TRANSIT CORRIDOR & ROUTE</strong>
+            <div id="wb-corridor-route" style="color:#ffffff; font-weight:600;">Lagos (Nigeria) ⇄ Tema Port (Ghana)</div>
+            <div style="color:var(--text-secondary); font-size:11px; margin-top:2px;">Via Seme-Krake Border Joint Checkpoint / Gulf of Guinea Feeder</div>
+          </div>
+          <div class="waybill-box">
+            <strong>4. CONTAINER & SECURITY SEAL</strong>
+            <div id="wb-container-id" style="color:#ffffff; font-family:var(--font-mono); font-weight:600;">MSCU-748920-1 (40ft High Cube)</div>
+            <div id="wb-seal-num" style="color:#34d399; font-size:11px; font-family:var(--font-mono); margin-top:2px;">E-SEAL-NGGH-9982 (Verified Intact)</div>
+          </div>
+        </div>
+
+        <div class="waybill-box" style="margin-bottom:var(--sp-4);">
+          <strong>5. GOODS DESCRIPTION & TARIFF CLASSIFICATION</strong>
+          <div id="wb-goods-title" style="color:#ffffff; font-weight:600; font-size:13px;">5,000 Solar Mounting Brackets & Clamps (AL6063-T6)</div>
+          <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:11px; color:var(--text-secondary);">
+            <span>HS Code: <strong id="wb-hscode" style="color:#ffffff;">7610.90.00</strong></span>
+            <span>Gross Weight: <strong id="wb-weight" style="color:#ffffff;">1,900 kg</strong></span>
+            <span>Declared FOB Value: <strong id="wb-val" style="color:var(--accent-cyan);">$18,400.00</strong></span>
+            <span>Total Landed (CIF): <strong id="wb-landed" style="color:#34d399;">$22,910.00</strong></span>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.4); padding:10px 14px; border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+          <div style="font-size:11px; color:var(--text-tertiary);">
+            <div>ESCROW DEPOSIT SECURED VIA PAPSS / GHIPSS ($6,873.00 LOCKED)</div>
+            <div style="color:var(--text-muted); font-family:var(--font-mono); margin-top:2px;">Smart Contract Hash: 0x9f182c...ba4401</div>
+          </div>
+          <button class="btn-secondary" onclick="window.print()" style="padding:4px 12px; font-size:11px;">
+            Print Waybill
+          </button>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:var(--sp-4);">
+        <button type="button" class="btn-primary modal-backdrop-close">Close Consignment Note</button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Modal: Submit Formal Quote Response -->
   <div class="modal-overlay" id="modal-submit-quote" role="dialog" aria-modal="true" aria-labelledby="modal-quote-title">
@@ -1256,9 +1467,9 @@
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Application Scripts -->
-  <script src="js/store.js"></script>
-  <script src="js/landed-cost.js"></script>
-  <script src="js/motion.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/store.js?v=2.5.0"></script>
+  <script src="js/landed-cost.js?v=2.5.0"></script>
+  <script src="js/motion.js?v=2.5.0"></script>
+  <script src="js/app.js?v=2.5.0"></script>
 </body>
 </html>

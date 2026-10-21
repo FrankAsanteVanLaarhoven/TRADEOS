@@ -274,9 +274,47 @@
     }
 
     /* ------------------------------------------------------------------------
-       Supplier Commerce Hub (Shopify & Keystone Admin)
+       Supplier Commerce Hub (TradeOS Native Catalog & Optional Shopify Mirror)
        ------------------------------------------------------------------------ */
     setupShopifyAdmin() {
+      // Engine Switcher Tabs (TradeOS Native vs Shopify Mirror)
+      const btnEngineNative = document.getElementById('btn-engine-native');
+      const btnEngineShopify = document.getElementById('btn-engine-shopify');
+      const engineBadge = document.getElementById('catalog-engine-badge');
+      const storeTitle = document.getElementById('supplier-store-title');
+      const storeDesc = document.getElementById('supplier-store-desc');
+      const termTitle = document.getElementById('terminal-title');
+
+      if (btnEngineNative && btnEngineShopify) {
+        btnEngineNative.addEventListener('click', () => {
+          btnEngineNative.classList.add('active');
+          btnEngineShopify.classList.remove('active');
+          this.store.setCatalogEngine('native');
+          if (engineBadge) {
+            engineBadge.className = 'engine-badge-native';
+            engineBadge.textContent = 'TradeOS Native Sovereign Engine';
+          }
+          if (storeTitle) storeTitle.textContent = 'Helios Aluminum Fab Ltd (Lagos Hub) • Native B2B Engine';
+          if (storeDesc) storeDesc.textContent = '✓ Sovereign African Cloud Catalog • Direct Wholesale Inventory (No Shopify Required) • AfCFTA Certified';
+          if (termTitle) termTitle.textContent = 'TRADEOS NATIVE CATALOG & EVENT BUS (v2.5.0-SOVEREIGN)';
+          this.showToast('Active Engine: TradeOS Native B2B Catalog (Direct Sourcing)', 'success');
+        });
+
+        btnEngineShopify.addEventListener('click', () => {
+          btnEngineShopify.classList.add('active');
+          btnEngineNative.classList.remove('active');
+          this.store.setCatalogEngine('shopify');
+          if (engineBadge) {
+            engineBadge.className = 'shopify-badge';
+            engineBadge.textContent = 'Shopify Enterprise Connected';
+          }
+          if (storeTitle) storeTitle.textContent = 'Helios Fab Storefront (Store ID: #SHOPIFY-NG-4819)';
+          if (storeDesc) storeDesc.textContent = '✓ Shopify B2B Mirror Active • Bi-directional Inventory & Webhook Webhooks Active';
+          if (termTitle) termTitle.textContent = 'SHOPIFY ADMIN GRAPHQL & WEBHOOK STREAM (v2026-10)';
+          this.showToast('Active Engine: Shopify Enterprise Mirror Mode', 'info');
+        });
+      }
+
       // View Mode Toggle (Grid vs Table)
       const btnGrid = document.getElementById('btn-view-grid');
       const btnTable = document.getElementById('btn-view-table');
@@ -302,6 +340,60 @@
       if (btnAddProduct) {
         btnAddProduct.addEventListener('click', () => {
           this.openModal('modal-add-product');
+        });
+      }
+
+      // Bulk Import Modal open
+      const btnOpenBulk = document.getElementById('btn-open-bulk-import');
+      if (btnOpenBulk) {
+        btnOpenBulk.addEventListener('click', () => {
+          this.openModal('modal-bulk-import');
+        });
+      }
+
+      // Sample CSV Template Loader
+      const btnSampleCsv = document.getElementById('btn-load-sample-csv');
+      const bulkInput = document.getElementById('bulk-import-input');
+      if (btnSampleCsv && bulkInput) {
+        btnSampleCsv.addEventListener('click', () => {
+          bulkInput.value = `sku,title,category,stock,b2bPrice,basePrice,moq,leadTimeDays,originCountry,afcfta
+SOL-CBL-4MM,Double Insulated 4mm Solar Cable (100m Roll),Solar Infrastructure,2500,68.00,85.00,10,7,Nigeria,true
+AGR-SESAME-01,Organic Natural White Sesame Seeds (Metric Ton),Agro Commodities,120,1850.00,2100.00,1,10,Nigeria,true
+TEX-COT-09,West African Combed Cotton Yarn (100kg Bale),Industrial Materials,450,320.00,390.00,5,14,Ghana,true
+IND-LITH-SPOD,Spodumene Lithium Concentrate 6% Li2O (Dry Ton),Industrial Materials,80,950.00,1150.00,2,21,Zimbabwe,true`;
+          this.showToast('Sample African manufacturing & agro CSV loaded', 'info');
+        });
+      }
+
+      // Execute Bulk Import
+      const btnRunBulk = document.getElementById('btn-execute-bulk-import');
+      const bulkStatus = document.getElementById('bulk-import-status');
+      if (btnRunBulk && bulkInput) {
+        btnRunBulk.addEventListener('click', () => {
+          const content = bulkInput.value.trim();
+          if (!content) {
+            this.showToast('Please paste CSV or JSON data first', 'warning');
+            return;
+          }
+          const res = this.store.bulkImportProducts(content);
+          if (res.success) {
+            this.closeAllModals();
+            this.renderProducts();
+            this.showToast(`Imported ${res.count} products to Native Catalog!`, 'success');
+            if (bulkStatus) bulkStatus.textContent = `Imported ${res.count} items.`;
+          } else {
+            this.showToast(`Import failed: ${res.error}`, 'error');
+            if (bulkStatus) bulkStatus.textContent = `Error: ${res.error}`;
+          }
+        });
+      }
+
+      // Export Catalog CSV Button
+      const btnExportCsv = document.getElementById('btn-export-catalog');
+      if (btnExportCsv) {
+        btnExportCsv.addEventListener('click', () => {
+          this.store.exportCatalogCSV();
+          this.showToast('Catalog exported to CSV successfully', 'success');
         });
       }
 
@@ -338,7 +430,8 @@
         if (!query) return true;
         return p.title.toLowerCase().includes(query) ||
                p.sku.toLowerCase().includes(query) ||
-               p.category.toLowerCase().includes(query);
+               p.category.toLowerCase().includes(query) ||
+               (p.originCountry && p.originCountry.toLowerCase().includes(query));
       });
 
       if (isGrid) {
@@ -352,7 +445,7 @@
             <div class="product-body">
               <div>
                 <h4 class="product-card-title">${p.title}</h4>
-                <p style="font-size:11px; color:var(--text-tertiary);">${p.category} • MOQ: ${p.moq} pcs</p>
+                <p style="font-size:11px; color:var(--text-tertiary);">${p.category} • MOQ: ${p.moq} • ${p.originCountry || 'Africa'}</p>
                 <div class="product-pricing-strip">
                   <div>
                     <span style="font-size:10px; color:var(--text-tertiary); display:block;">B2B WHOLESALE</span>
@@ -390,7 +483,7 @@
             </td>
             <td style="font-weight:700; color:var(--accent-cyan);">$${p.b2bPrice.toFixed(2)}</td>
             <td>${p.moq} units</td>
-            <td>${p.leadTimeDays} days</td>
+            <td>${p.originCountry || 'Africa'} (${p.leadTimeDays}d)</td>
             <td>${p.afcftaCertified ? '<span style="color:var(--accent-emerald); font-weight:700;">✓ Certified</span>' : '<span style="color:var(--text-tertiary);">Standard</span>'}</td>
             <td>
               <button class="btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.TradeOS.deleteProduct('${p.id}')">Remove</button>
@@ -411,7 +504,7 @@
     }
 
     deleteProduct(id) {
-      if (confirm("Delete this product from your synchronized Shopify B2B catalog?")) {
+      if (confirm("Delete this product from your Native TradeOS B2B Catalog?")) {
         this.store.deleteProduct(id);
         this.renderProducts();
         this.showToast(`Product deleted successfully`, 'warning');
@@ -419,9 +512,48 @@
     }
 
     /* ------------------------------------------------------------------------
-       AfCFTA Corridors & Operations
+       End-to-End AfCFTA Corridors & Real-Time Logistics Telematics
        ------------------------------------------------------------------------ */
     setupOperations() {
+      // Consignment Tracking input & Track button
+      const searchTrackInput = document.getElementById('consignment-search-input');
+      const btnTrack = document.getElementById('btn-track-consignment');
+      if (btnTrack && searchTrackInput) {
+        btnTrack.addEventListener('click', () => {
+          const query = searchTrackInput.value.trim().toUpperCase();
+          if (query) {
+            this.store.setTrackingConsignment(query);
+            this.updateCorridorView(this.store.activeCorridor);
+            this.updateTelematicsHUD();
+            this.renderTimeline();
+            this.showToast(`Loaded tracking telemetry for ${query}`, 'info');
+          }
+        });
+      }
+
+      // Consignment Preset Chips
+      const presetChips = document.querySelectorAll('.preset-chip');
+      presetChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          presetChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const trackingNumber = chip.dataset.tracking;
+          if (searchTrackInput) searchTrackInput.value = trackingNumber;
+          this.store.setTrackingConsignment(trackingNumber);
+          
+          // Sync corridor buttons
+          const corridorKey = this.store.activeCorridor;
+          document.querySelectorAll('.corridor-pill-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.corridor === corridorKey);
+          });
+
+          this.updateCorridorView(corridorKey);
+          this.updateTelematicsHUD();
+          this.renderTimeline();
+          this.showToast(`Switched tracking to: ${trackingNumber}`, 'info');
+        });
+      });
+
       // Corridor switcher buttons
       const corridorBtns = document.querySelectorAll('.corridor-pill-btn');
       corridorBtns.forEach(btn => {
@@ -430,7 +562,20 @@
           btn.classList.add('active');
           const corridor = btn.dataset.corridor;
           this.store.activeCorridor = corridor;
+          
+          // Switch to corresponding active consignment for that corridor
+          const matchingShipment = this.store.shipments.find(s => s.corridorId === corridor);
+          if (matchingShipment) {
+            this.store.setTrackingConsignment(matchingShipment.trackingNumber);
+            if (searchTrackInput) searchTrackInput.value = matchingShipment.trackingNumber;
+            presetChips.forEach(c => {
+              c.classList.toggle('active', c.dataset.tracking === matchingShipment.trackingNumber);
+            });
+          }
+
           this.updateCorridorView(corridor);
+          this.updateTelematicsHUD();
+          this.renderTimeline();
           this.showToast(`Switched active trade corridor: ${btn.textContent}`, 'info');
         });
       });
@@ -440,12 +585,93 @@
       if (btnAdvance) {
         btnAdvance.addEventListener('click', () => {
           this.store.advanceShipmentStage();
+          this.updateTelematicsHUD();
           this.renderTimeline();
           this.showToast(`Shipment transit milestone updated!`, 'success');
         });
       }
 
+      // View Digital Waybill Button
+      const btnWaybill = document.getElementById('btn-view-waybill');
+      if (btnWaybill) {
+        btnWaybill.addEventListener('click', () => {
+          this.populateAndOpenWaybill();
+        });
+      }
+
+      this.updateTelematicsHUD();
       this.renderTimeline();
+    }
+
+    updateTelematicsHUD() {
+      const shipment = this.store.getActiveShipment();
+      if (!shipment) return;
+
+      const telemId = document.getElementById('telem-consignment-id');
+      const telemPo = document.getElementById('telem-po-num');
+      const telemCoords = document.getElementById('telem-coords');
+      const telemLoc = document.getElementById('telem-location-name');
+      const telemTemp = document.getElementById('telem-temp');
+      const telemSpeed = document.getElementById('telem-speed');
+      const telemSeal = document.getElementById('telem-seal-status');
+      const telemSealId = document.getElementById('telem-seal-id');
+      const titleEl = document.getElementById('timeline-consignment-title');
+      const descEl = document.getElementById('timeline-consignment-desc');
+      const badgeEl = document.getElementById('timeline-status-badge');
+
+      if (telemId) telemId.textContent = shipment.trackingNumber;
+      if (telemPo) telemPo.textContent = `PO #${shipment.poNumber} • ${shipment.incoterms}`;
+      if (telemCoords) telemCoords.textContent = `${shipment.telematics.latitude.toFixed(4)}° N, ${shipment.telematics.longitude.toFixed(4)}° E`;
+      if (telemLoc) telemLoc.textContent = shipment.telematics.locationName;
+      if (telemTemp) telemTemp.textContent = `${shipment.telematics.temperatureC}°C • ${shipment.telematics.humidityPct}% RH`;
+      if (telemSpeed) telemSpeed.textContent = `Speed: ${shipment.telematics.speedKnots} Knots • ${shipment.telematics.lastPing}`;
+      if (telemSeal) telemSeal.textContent = shipment.telematics.sealIntegrity;
+      if (telemSealId) telemSealId.textContent = `#${shipment.sealNumber}`;
+
+      if (titleEl) titleEl.textContent = `Consignment #${shipment.trackingNumber} Verifiable Lifecycle`;
+      if (descEl) descEl.textContent = `${shipment.consignmentTitle}: ${shipment.shipper.city} ➔ ${shipment.consignee.city}`;
+      
+      const activeStage = shipment.stages.find(s => s.inProgress) || shipment.stages[shipment.stages.length - 1];
+      if (badgeEl && activeStage) {
+        badgeEl.textContent = activeStage.inProgress ? `Active • ${activeStage.title}` : (activeStage.completed ? 'Delivered & Settled' : 'Pending');
+      }
+    }
+
+    populateAndOpenWaybill() {
+      const s = this.store.getActiveShipment();
+      if (!s) return;
+
+      const wbNumber = document.getElementById('wb-number');
+      const wbCert = document.getElementById('wb-cert');
+      const wbShipperName = document.getElementById('wb-shipper-name');
+      const wbShipperAddr = document.getElementById('wb-shipper-address');
+      const wbConsigneeName = document.getElementById('wb-consignee-name');
+      const wbConsigneeAddr = document.getElementById('wb-consignee-address');
+      const wbRoute = document.getElementById('wb-corridor-route');
+      const wbContainer = document.getElementById('wb-container-id');
+      const wbSeal = document.getElementById('wb-seal-num');
+      const wbTitle = document.getElementById('wb-goods-title');
+      const wbHs = document.getElementById('wb-hscode');
+      const wbWeight = document.getElementById('wb-weight');
+      const wbVal = document.getElementById('wb-val');
+      const wbLanded = document.getElementById('wb-landed');
+
+      if (wbNumber) wbNumber.textContent = `AWB-${s.trackingNumber}`;
+      if (wbCert) wbCert.textContent = `CoO #${s.shipper.afcftaCertNo}`;
+      if (wbShipperName) wbShipperName.textContent = s.shipper.name;
+      if (wbShipperAddr) wbShipperAddr.textContent = `${s.shipper.city}, ${s.shipper.country} (LEI: ${s.shipper.lei})`;
+      if (wbConsigneeName) wbConsigneeName.textContent = s.consignee.name;
+      if (wbConsigneeAddr) wbConsigneeAddr.textContent = `${s.consignee.city}, ${s.consignee.country} (TIN: ${s.consignee.taxId})`;
+      if (wbRoute) wbRoute.textContent = `${s.shipper.city} ⇄ ${s.consignee.city} (${s.incoterms})`;
+      if (wbContainer) wbContainer.textContent = s.containerId;
+      if (wbSeal) wbSeal.textContent = `${s.sealNumber} (${s.telematics.sealIntegrity})`;
+      if (wbTitle) wbTitle.textContent = s.consignmentTitle;
+      if (wbHs) wbHs.textContent = s.hsCode;
+      if (wbWeight) wbWeight.textContent = `${s.grossWeightKg.toLocaleString()} kg`;
+      if (wbVal) wbVal.textContent = `$${(s.valueUSD * 0.8).toLocaleString()}`;
+      if (wbLanded) wbLanded.textContent = `$${s.valueUSD.toLocaleString()}`;
+
+      this.openModal('modal-waybill');
     }
 
     updateCorridorView(corridorKey) {
@@ -465,6 +691,10 @@
         if (nameEl) nameEl.textContent = "Southern Africa Mining & Energy Corridor: Durban/JHB (South Africa) ⇄ Lusaka (Zambia)";
         if (volumeEl) volumeEl.textContent = "$31.4M Verified Volume";
         if (tariffEl) tariffEl.textContent = "0% SADC Free Trade Agreement";
+      } else if (corridorKey === 'SN_ML') {
+        if (nameEl) nameEl.textContent = "Sahel Trans-West Corridor: Dakar Port (Senegal) ⇄ Bamako ICD (Mali)";
+        if (volumeEl) volumeEl.textContent = "$14.6M Verified Volume";
+        if (tariffEl) tariffEl.textContent = "0% ECOWAS / AfCFTA Zero Tariff";
       }
     }
 
@@ -472,7 +702,10 @@
       const container = document.getElementById('order-timeline-stepper');
       if (!container) return;
 
-      const stages = this.store.activeOrder.stages;
+      const shipment = this.store.getActiveShipment();
+      if (!shipment) return;
+
+      const stages = shipment.stages;
       container.innerHTML = stages.map(s => {
         const statusClass = s.completed ? 'completed' : (s.inProgress ? 'in-progress' : '');
         const iconChar = s.completed ? '✓' : (s.inProgress ? '●' : s.id);
@@ -485,6 +718,7 @@
                 <span class="step-title">${s.title}</span>
                 <span class="step-timestamp">${s.timestamp}</span>
               </div>
+              <div style="font-size:11px; color:var(--accent-cyan); margin-bottom:2px; font-weight:600;">📍 ${s.location}</div>
               <p class="step-desc">${s.desc}</p>
             </div>
           </div>
@@ -647,10 +881,12 @@
             sku: formData.get('sku'),
             category: formData.get('category'),
             stock: formData.get('stock'),
-            basePrice: formData.get('basePrice'),
+            basePrice: formData.get('b2bPrice') * 1.25,
             b2bPrice: formData.get('b2bPrice'),
             moq: formData.get('moq'),
             leadTimeDays: formData.get('leadTimeDays'),
+            originCountry: formData.get('originCountry') || 'Nigeria',
+            originCity: formData.get('originCity') || 'Industrial Area',
             afcftaCertified: formData.get('afcftaCertified') === 'on',
             image: "assets/hero_solar_hardware.jpg"
           });
@@ -658,7 +894,7 @@
           this.closeAllModals();
           addForm.reset();
           this.renderProducts();
-          this.showToast(`Product ${newProd.sku} published to B2B Catalog`, 'success');
+          this.showToast(`Product ${newProd.sku} published to Native TradeOS Catalog!`, 'success');
         });
       }
 

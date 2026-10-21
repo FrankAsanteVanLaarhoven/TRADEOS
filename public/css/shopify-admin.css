@@ -367,3 +367,100 @@
 .terminal-payload {
   color: var(--text-secondary);
 }
+
+/* ==========================================================================
+   TradeOS Native Catalog Engine & Bulk Import UI Additions
+   ========================================================================== */
+.catalog-engine-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: rgba(11, 15, 23, 0.8);
+  border: 1px solid var(--border-hairline);
+  padding: 4px;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--sp-4);
+  width: fit-content;
+}
+
+.engine-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.engine-tab-btn:hover {
+  color: #ffffff;
+}
+
+.engine-tab-btn.active {
+  background: rgba(56, 189, 248, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.engine-badge-native {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bulk-import-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px dashed rgba(56, 189, 248, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  text-align: center;
+  margin-bottom: var(--sp-6);
+  transition: border-color var(--transition-fast);
+}
+
+.bulk-import-box:hover {
+  border-color: var(--accent-cyan);
+}
+
+.bulk-import-textarea {
+  width: 100%;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-primary);
+  resize: vertical;
+  margin: var(--sp-3) 0;
+}
+
+.sample-csv-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  color: var(--accent-cyan);
+  cursor: pointer;
+  margin-left: 6px;
+}
+
