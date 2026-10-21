@@ -99,6 +99,7 @@ button {
   justify-content: space-between;
   height: 68px;
   gap: var(--sp-4);
+  position: relative;
 }
 
 .brand-group {
@@ -106,11 +107,12 @@ button {
   align-items: center;
   gap: var(--sp-3);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brand-logo-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -118,11 +120,13 @@ button {
   background: linear-gradient(135deg, #1e293b, #0f172a);
   border: 1px solid var(--border-subtle);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  flex-shrink: 0;
 }
 
 .brand-text {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 }
 
 .brand-title {
@@ -162,76 +166,166 @@ button {
   padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-hairline);
-  gap: 2px;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.nav-pills::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tab-btn {
-  padding: 6px 14px;
-  font-size: var(--text-sm);
+  padding: 6px 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
 }
 
 .nav-tab-btn:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .nav-tab-btn.active {
-  color: var(--text-primary);
+  color: #ffffff;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .nav-tab-btn .badge-pill {
   font-size: 10px;
-  padding: 1px 5px;
+  padding: 1px 6px;
   border-radius: var(--radius-full);
   background: rgba(16, 185, 129, 0.2);
   color: var(--accent-emerald);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* Header Right Actions */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
+  gap: 10px;
+  flex-shrink: 0;
+  min-width: max-content;
 }
 
+/* Green Live Corridor Badge */
 .corridor-indicator {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 6px 12px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 6px 14px;
   border-radius: var(--radius-full);
-  font-size: var(--text-xs);
+  font-size: 12px;
   font-weight: 600;
-  color: var(--accent-emerald);
+  color: #34d399;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  line-height: 1;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.15);
+  user-select: none;
+}
+
+.corridor-indicator .live-pill {
+  background: rgba(16, 185, 129, 0.25);
+  color: #10B981;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-left: 2px;
+}
+
+.corridor-text-short {
+  display: none;
 }
 
 .pulsing-dot {
-  width: 7px;
-  height: 7px;
-  background-color: var(--accent-emerald);
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent-emerald);
+  box-shadow: 0 0 10px #10B981;
   animation: pulseGreen 2s infinite;
+  flex-shrink: 0;
+  display: inline-block;
 }
 
 @keyframes pulseGreen {
   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Responsive Adaptive Navbar */
+.tab-label-compact {
+  display: none;
+}
+
+@media (max-width: 1340px) {
+  .tab-label-full {
+    display: none;
+  }
+  .tab-label-compact {
+    display: inline;
+  }
+  .nav-tab-btn {
+    padding: 6px 10px;
+    font-size: 12.5px;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .corridor-text-long {
+    display: none;
+  }
+  .corridor-text-short {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 960px) {
+  .header-nav {
+    padding: 8px 0;
+  }
+  .header-container {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 12px;
+  }
+  .brand-group {
+    order: 1;
+  }
+  .header-actions {
+    order: 2;
+  }
+  .nav-pills {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 .btn-primary {

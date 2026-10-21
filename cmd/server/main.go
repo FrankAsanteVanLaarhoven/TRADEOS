@@ -434,7 +434,7 @@ func main() {
 		if strings.HasSuffix(r.URL.Path, ".jpg") || strings.HasSuffix(r.URL.Path, ".png") || strings.HasSuffix(r.URL.Path, ".svg") {
 			w.Header().Set("Cache-Control", "public, max-age=86400")
 		} else if strings.HasSuffix(r.URL.Path, ".css") || strings.HasSuffix(r.URL.Path, ".js") {
-			w.Header().Set("Cache-Control", "public, max-age=3600")
+			w.Header().Set("Cache-Control", "no-cache")
 		}
 
 		fileServer.ServeHTTP(w, r)

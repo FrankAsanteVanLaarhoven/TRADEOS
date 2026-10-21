@@ -33,11 +33,11 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/control-room.css">
-  <link rel="stylesheet" href="css/shopify-admin.css">
-  <link rel="stylesheet" href="css/operations.css">
+  <link rel="stylesheet" href="css/tokens.css?v=2.4.2">
+  <link rel="stylesheet" href="css/main.css?v=2.4.2">
+  <link rel="stylesheet" href="css/control-room.css?v=2.4.2">
+  <link rel="stylesheet" href="css/shopify-admin.css?v=2.4.2">
+  <link rel="stylesheet" href="css/operations.css?v=2.4.2">
 </head>
 <body>
 
@@ -63,32 +63,38 @@
       <nav class="nav-pills" role="navigation" aria-label="Operating System Workspaces">
         <button class="nav-tab-btn active" data-view="showcase" id="nav-btn-showcase">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-          Wholesale Sourcing
+          <span class="tab-label-full">Wholesale Sourcing</span>
+          <span class="tab-label-compact">Wholesale</span>
         </button>
         <button class="nav-tab-btn" data-view="control-room" id="nav-btn-control-room">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          Buyer Procurement
-          <span class="badge-pill">Q4 Live</span>
+          <span class="tab-label-full">Buyer Procurement</span>
+          <span class="tab-label-compact">Procurement</span>
+          <span class="badge-pill">Q4</span>
         </button>
         <button class="nav-tab-btn" data-view="shopify-admin" id="nav-btn-shopify-admin">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          Supplier Portal (Shopify ERP)
+          <span class="tab-label-full">Supplier Portal (Shopify ERP)</span>
+          <span class="tab-label-compact">Supplier Hub</span>
         </button>
         <button class="nav-tab-btn" data-view="operations" id="nav-btn-operations">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-          Corridor Radar & Escrow
+          <span class="tab-label-full">Corridor Radar & Escrow</span>
+          <span class="tab-label-compact">Corridors</span>
         </button>
         <button class="nav-tab-btn" data-view="api" id="nav-btn-api">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-          Developer API
+          <span class="tab-label-full">Developer API</span>
+          <span class="tab-label-compact">API</span>
         </button>
       </nav>
 
       <!-- Action Group -->
       <div class="header-actions">
-        <div class="corridor-indicator" title="Active Trade Corridor Status">
-          <span class="pulsing-dot"></span>
-          <span>NG-LOS ⇄ GH-TMA LIVE</span>
+        <div class="corridor-indicator" title="Active Trade Corridor: Nigeria (Lagos) ⇄ Ghana (Tema) • 0% Preferential AfCFTA Duty">
+          <span class="pulsing-dot" aria-hidden="true"></span>
+          <span class="corridor-text-long">NG-LOS ⇄ GH-TMA <span class="live-pill">LIVE</span></span>
+          <span class="corridor-text-short">NG ⇄ GH <span class="live-pill">LIVE</span></span>
         </div>
         <button class="btn-accent" data-switch-view="control-room" aria-label="Open Enterprise Procurement Workspace">
           Enterprise Access

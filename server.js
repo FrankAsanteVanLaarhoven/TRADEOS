@@ -257,15 +257,23 @@ const server = http.createServer(async (req, res) => {
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
     // Cache static assets
-    let cacheControl = 'public, max-age=3600';
+    let cacheControl = 'no-cache, no-store, must-revalidate';
     if (ext === '.jpg' || ext === '.png' || ext === '.svg') {
       cacheControl = 'public, max-age=86400';
+    } else if (ext === '.css' || ext === '.js') {
+      cacheControl = 'no-cache';
     }
 
-    res.writeHead(200, {
+    const headers = {
       'Content-Type': contentType,
       'Cache-Control': cacheControl
-    });
+    };
+    if (cacheControl.includes('no-cache')) {
+      headers['Pragma'] = 'no-cache';
+      headers['Expires'] = '0';
+    }
+
+    res.writeHead(200, headers);
 
     const stream = fs.createReadStream(filePath);
     stream.pipe(res);
