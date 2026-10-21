@@ -1,0 +1,10 @@
+# TradeOS Africa - Robots Configuration
+User-agent: *
+Allow: /
+Allow: /procurement
+Allow: /suppliers
+Allow: /corridors
+Disallow: /api/internal/
+Disallow: /workspace/private/
+
+Sitemap: https://tradeos.africa/sitemap.xml

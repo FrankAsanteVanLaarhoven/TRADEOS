@@ -1,0 +1,445 @@
+/* ==========================================================================
+   TradeOS Africa - Enterprise Buyer Procurement Workspace
+   ========================================================================== */
+
+.control-room-header {
+  padding: var(--sp-8) 0 var(--sp-6);
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: var(--sp-8);
+}
+
+.workspace-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--sp-2);
+}
+
+.workspace-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.workspace-title-group h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.workspace-meta {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin-top: 4px;
+}
+
+/* KPI Summary Cards */
+.kpi-deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-accent);
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  opacity: 0.4;
+}
+
+.kpi-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-num {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.kpi-sub {
+  font-size: var(--text-xs);
+  color: var(--accent-emerald);
+  margin-top: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Institutional Procurement Tender Card */
+.procurement-rfq-card,
+.killer-rfq-card {
+  background: linear-gradient(145deg, rgba(24, 34, 52, 0.7) 0%, rgba(15, 22, 35, 0.9) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-8);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.1);
+  margin-bottom: var(--sp-8);
+  position: relative;
+}
+
+.rfq-header-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.rfq-badge-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.rfq-main-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--sp-8);
+}
+
+@media (max-width: 960px) {
+  .rfq-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rfq-detail-pane h2 {
+  font-size: var(--text-2xl);
+  color: #ffffff;
+  margin-bottom: var(--sp-3);
+}
+
+.rfq-specs-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  margin: var(--sp-4) 0 var(--sp-6);
+}
+
+.spec-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+}
+
+.spec-item .label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.spec-item .value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Quote Comparison Pill Cards */
+.quote-comparison-box {
+  background: rgba(11, 15, 23, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.quote-candidate {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+}
+
+.quote-candidate.selected {
+  border-color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.07);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+}
+
+.quote-candidate:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.quote-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.supplier-name {
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.supplier-trust-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-emerald);
+}
+
+.quote-pricing-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-sm);
+}
+
+.landed-callout {
+  font-size: var(--text-md);
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+/* PO Approval Chain & Escrow Tracker */
+.workflow-ops-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-8);
+}
+
+@media (max-width: 860px) {
+  .workflow-ops-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ops-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  backdrop-filter: blur(16px);
+}
+
+.ops-panel h3 {
+  font-size: var(--text-lg);
+  color: #ffffff;
+  margin-bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Approval Chain Steps */
+.approval-chain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.approval-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-hairline);
+}
+
+.approval-step.approved {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.approval-step.pending {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.role-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.role-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.approval-step.approved .role-icon {
+  background: var(--accent-emerald);
+  color: #07090e;
+}
+
+.approval-step.pending .role-icon {
+  background: var(--accent-amber);
+  color: #07090e;
+}
+
+/* Escrow Milestone Card */
+.escrow-vault-card {
+  background: rgba(11, 15, 23, 0.9);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  margin-top: var(--sp-4);
+}
+
+.escrow-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-4);
+}
+
+.escrow-bar-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--sp-4);
+}
+
+.escrow-bar-fill {
+  height: 100%;
+  width: 30%;
+  background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+  border-radius: var(--radius-full);
+  transition: width 0.8s ease;
+}
+
+.escrow-milestone-pills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.milestone-pill {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-hairline);
+  font-size: var(--text-xs);
+}
+
+.milestone-pill.completed {
+  border-color: rgba(16, 185, 129, 0.3);
+  color: var(--accent-emerald);
+}
+
+/* Document Vault */
+.document-vault-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-4);
+}
+
+.doc-vault-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.doc-vault-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-subtle);
+  transform: translateY(-1px);
+}
+
+.doc-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.doc-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.doc-sub {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}

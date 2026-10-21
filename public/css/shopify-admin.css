@@ -1,0 +1,369 @@
+/* ==========================================================================
+   TradeOS Africa - Supplier Commerce Hub
+   Reverse Engineered Shopify Enterprise & Keystone B2B Backend
+   ========================================================================== */
+
+.supplier-portal-header {
+  padding: var(--sp-8) 0 var(--sp-6);
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: var(--sp-6);
+}
+
+.supplier-status-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(17, 23, 36, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-6);
+  margin-bottom: var(--sp-6);
+  backdrop-filter: blur(14px);
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.supplier-store-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.shopify-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #95bf47; /* Shopify green */
+  color: #07090e;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.store-name-text {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.supplier-sync-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.sync-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.sync-stat-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.sync-stat-val {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Supplier Action Toolbar */
+.supplier-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.toolbar-search-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1;
+  max-width: 500px;
+}
+
+.view-mode-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  gap: 2px;
+}
+
+.view-toggle-btn {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.view-toggle-btn.active {
+  background: var(--bg-tertiary);
+  color: #ffffff;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Incoming RFQ Priority Banner */
+.incoming-rfq-banner {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5) var(--sp-6);
+  margin-bottom: var(--sp-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.rfq-match-text h4 {
+  font-size: var(--text-md);
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.rfq-match-text p {
+  font-size: var(--text-xs);
+  color: var(--accent-cyan);
+}
+
+/* Product Catalog Grid - ICON / CARD VIEW */
+.product-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-8);
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-img-wrapper {
+  position: relative;
+  height: 180px;
+  background: #000000;
+  overflow: hidden;
+}
+
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+  transform: scale(1.05);
+}
+
+.product-sku-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(11, 15, 23, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-hairline);
+}
+
+.stock-status-pill {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+
+.stock-in {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.product-body {
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.product-card-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.product-pricing-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: var(--sp-3) 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.b2b-price-badge {
+  font-size: var(--text-md);
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.moq-tag {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.product-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+/* Product Catalog Table - LIST VIEW */
+.product-table-wrapper {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow-x: auto;
+  margin-bottom: var(--sp-8);
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-sm);
+}
+
+.product-table th {
+  padding: 14px 16px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.product-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+
+.product-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Stock Stepper inside Table */
+.stock-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-sm);
+}
+
+.stepper-btn {
+  padding: 3px 8px;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.stepper-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stepper-val {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* GraphQL / Webhook Terminal Console */
+.graphql-terminal {
+  background: #05070a;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-tertiary);
+}
+
+.terminal-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.terminal-line {
+  display: flex;
+  gap: 12px;
+}
+
+.terminal-time {
+  color: var(--text-muted);
+}
+
+.terminal-event {
+  color: var(--accent-emerald);
+}
+
+.terminal-payload {
+  color: var(--text-secondary);
+}

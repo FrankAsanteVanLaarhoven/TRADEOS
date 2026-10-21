@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>TradeOS Africa | Africa-Native B2B Commerce Operating System</title>
+  
+  <!-- SEO & Social Meta (Q01, Q03, Q05, Q06, Q07 Quality Gate) -->
+  <meta name="description" content="TradeOS Africa is the Africa-native B2B commerce operating system connecting verified African and international suppliers with enterprise businesses through verified KYB, RFQ workflows, AfCFTA landed-cost intelligence, PAPSS escrow settlement, and cross-border logistics orchestration.">
+  <meta name="keywords" content="TradeOS, Africa B2B, AfCFTA trade, African wholesale sourcing, enterprise procurement, landed cost calculator, Shopify B2B Africa, PAPSS escrow, Lagos Ghana trade corridor">
+  <meta name="author" content="TradeOS Africa Technologies">
+  <meta name="application-name" content="TradeOS Africa (Enterprise Preview)">
+  <link rel="canonical" href="https://tradeos.africa/">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradeos.africa/">
+  <meta property="og:title" content="TradeOS Africa | Africa-Native B2B Commerce Operating System">
+  <meta property="og:description" content="Enterprise B2B trade operating system engineered for Sub-Saharan Africa: verified suppliers, landed cost calculator, multi-tier PO approvals, and AfCFTA cross-border logistics.">
+  <meta property="og:image" content="https://tradeos.africa/assets/corridor_logistics.jpg">
+  <meta property="og:image:alt" content="TradeOS real-time AfCFTA transit corridor tracking between Lagos Hub and Tema Port">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TradeOS Africa | Africa-Native B2B Commerce Operating System">
+  <meta name="twitter:description" content="Replace fragmented WhatsApp groups and brokers with an executable Africa-native B2B commerce operating system.">
+  <meta name="twitter:image" content="https://tradeos.africa/assets/corridor_logistics.jpg">
+  <meta name="twitter:image:alt" content="TradeOS AfCFTA trade infrastructure and corridor logistics">
+
+  <!-- Custom Branded Favicon (Q04 Quality Gate) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/control-room.css">
+  <link rel="stylesheet" href="css/shopify-admin.css">
+  <link rel="stylesheet" href="css/operations.css">
+</head>
+<body>
+
+  <!-- Top Sticky Header Navigation -->
+  <header class="header-nav" role="banner">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="#showcase" class="brand-group" data-switch-view="showcase" aria-label="TradeOS Africa Home">
+        <div class="brand-logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">TradeOS <span class="brand-tag">AFRICA</span></span>
+          <span class="brand-subtitle">B2B Commerce Operating System</span>
+        </div>
+      </a>
+
+      <!-- Navigation Tabs Switcher -->
+      <nav class="nav-pills" role="navigation" aria-label="Operating System Workspaces">
+        <button class="nav-tab-btn active" data-view="showcase" id="nav-btn-showcase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+          Wholesale Sourcing
+        </button>
+        <button class="nav-tab-btn" data-view="control-room" id="nav-btn-control-room">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Buyer Procurement
+          <span class="badge-pill">Q4 Live</span>
+        </button>
+        <button class="nav-tab-btn" data-view="shopify-admin" id="nav-btn-shopify-admin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          Supplier Portal (Shopify ERP)
+        </button>
+        <button class="nav-tab-btn" data-view="operations" id="nav-btn-operations">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          Corridor Radar & Escrow
+        </button>
+        <button class="nav-tab-btn" data-view="api" id="nav-btn-api">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Developer API
+        </button>
+      </nav>
+
+      <!-- Action Group -->
+      <div class="header-actions">
+        <div class="corridor-indicator" title="Active Trade Corridor Status">
+          <span class="pulsing-dot"></span>
+          <span>NG-LOS ⇄ GH-TMA LIVE</span>
+        </div>
+        <button class="btn-accent" data-switch-view="control-room" aria-label="Open Enterprise Procurement Workspace">
+          Enterprise Access
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main role="main">
+
+    <!-- ====================================================================
+         VIEW 1: PAN-AFRICAN WHOLESALE SOURCING MARKETPLACE
+         ==================================================================== -->
+    <section class="view-panel active" id="view-showcase" aria-labelledby="hero-main-title">
+      <div class="container">
+        
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <div class="hero-pill-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            Institutional B2B Cross-Border Trade & Settlement Infrastructure
+          </div>
+          
+          <h1 class="hero-title" id="hero-main-title">
+            The Operating System for Intra-African & Cross-Border B2B Trade.
+          </h1>
+
+          <p class="hero-subtitle">
+            Not another retail website. An executable trade operating system connecting verified African manufacturers with enterprise buyers. We own the trust, RFQs, escrow payments, landed-cost intelligence, and AfCFTA logistics workflows that global platforms ignore.
+          </p>
+
+          <div class="hero-cta-group">
+            <button class="btn-primary" data-switch-view="control-room">
+              Open Buyer Procurement Portal
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <button class="btn-secondary" data-switch-view="shopify-admin">
+              Supplier ERP & Shopify Portal
+            </button>
+            <a href="#calculator" class="btn-secondary">
+              Calculate Landed Cost
+            </a>
+          </div>
+
+          <!-- Corridor Live Ticker -->
+          <div class="corridor-ticker" role="region" aria-label="Live Corridor Performance Ticker">
+            <div class="ticker-metric">
+              <div class="ticker-label">Flagship Corridor</div>
+              <div class="ticker-value">Nigeria ⇄ Ghana</div>
+              <div class="ticker-diff">● Lagos to Tema Port</div>
+            </div>
+            <div class="ticker-metric">
+              <div class="ticker-label">Avg. Landed Cost Savings</div>
+              <div class="ticker-value">18.4% <span class="ticker-diff">vs China import</span></div>
+              <div class="ticker-diff">Zero AfCFTA Tariff</div>
+            </div>
+            <div class="ticker-metric">
+              <div class="ticker-label">Port & Customs Clearance</div>
+              <div class="ticker-value">42 Hours</div>
+              <div class="ticker-diff">Fast-track AfCFTA lane</div>
+            </div>
+            <div class="ticker-metric">
+              <div class="ticker-label">Escrow Settlement</div>
+              <div class="ticker-value">PAPSS / GhIPSS</div>
+              <div class="ticker-diff">Instant Local FX</div>
+            </div>
+          </div>
+
+          <!-- Interactive Cinematic Product Hardware Showcase (Veo 3 / Seedance Visual Simulation) -->
+          <div class="showcase-stage" id="hardware-stage">
+            <div class="showcase-header">
+              <div class="showcase-title-badge">
+                <span style="font-size:var(--text-sm); font-weight:700; color:#ffffff;">AEROSPACE GRADE INDUSTRIAL HARDWARE</span>
+                <span class="spec-chip">AL6063-T6 ANODIZED</span>
+                <span class="spec-chip">AfCFTA ZERO-TARIFF QUALIFIED</span>
+              </div>
+              <div class="showcase-controls">
+                <button class="mode-btn active" data-mode="cinematic">Cinematic Reveal</button>
+                <button class="mode-btn" data-mode="exploded">Exploded Specs</button>
+                <button class="mode-btn" data-mode="radar">Corridor Radar</button>
+              </div>
+            </div>
+
+            <div class="showcase-viewport">
+              <img id="showcase-main-img" class="showcase-image" src="assets/hero_solar_hardware.jpg" alt="Precision-engineered AL6063-T6 anodized solar mounting brackets and hardware" />
+              <canvas id="hardware-canvas" class="showcase-canvas-overlay" aria-hidden="true"></canvas>
+              
+              <!-- Interactive HUD Callouts -->
+              <div class="hud-callout hud-callout-1" onclick="window.TradeOS.showToast('AL6063-T6 Tensile Yield: 215 MPa. Extreme coastal salt-spray resistance.', 'info')">
+                <span class="hud-label">STRUCTURAL CORE</span>
+                <span class="hud-val">Extruded AL6063-T6</span>
+              </div>
+              <div class="hud-callout hud-callout-2" onclick="window.TradeOS.showToast('Pre-torqued A2-70 Stainless Steel fastener with Belleville spring washer.', 'info')">
+                <span class="hud-label">FASTENING INTEGRITY</span>
+                <span class="hud-val">Torque-Lock A2-70</span>
+              </div>
+              <div class="hud-callout hud-callout-3" onclick="window.TradeOS.showToast('AfCFTA Rule of Origin verified by Nigerian Federal Ministry of Industry.', 'success')">
+                <span class="hud-label">TRADE COMPLIANCE</span>
+                <span class="hud-val">0% Tariff • Certificate #NG-4819</span>
+              </div>
+            </div>
+
+            <!-- Media Tray Switcher -->
+            <div class="media-tray">
+              <div class="tray-thumb active" data-img="assets/hero_solar_hardware.jpg">
+                <img src="assets/hero_solar_hardware.jpg" alt="Solar mounting bracket precision hardware" />
+                <div class="tray-caption">Solar Mounting Hardware</div>
+              </div>
+              <div class="tray-thumb" data-img="assets/corridor_logistics.jpg">
+                <img src="assets/corridor_logistics.jpg" alt="Lagos-Accra AfCFTA maritime transit corridor" />
+                <div class="tray-caption">AfCFTA Transit Corridor</div>
+              </div>
+              <div class="tray-thumb" data-img="assets/industrial_inverter.jpg">
+                <img src="assets/industrial_inverter.jpg" alt="Aura smart industrial commercial inverter" />
+                <div class="tray-caption">Aura Industrial Electronics</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ====================================================================
+             Interactive Landed Cost Calculator
+             ==================================================================== -->
+        <div class="calculator-section" id="calculator">
+          <div style="text-align:center; max-width:760px; margin:0 auto var(--sp-8);">
+            <div class="workspace-badge">AFCFTA TARIFF & LANDED-COST VALUATION</div>
+            <h2 style="font-size:var(--text-3xl); margin-bottom:var(--sp-2);">Instant Landed-Cost Breakdown</h2>
+            <p>Global directories only quote unit prices at factory gates. TradeOS transparently computes total landed costs including sea/road freight, AfCFTA customs exemptions, VAT, and escrow protection.</p>
+          </div>
+
+          <div class="calc-grid">
+            <div class="calc-controls">
+              <h3 style="font-size:var(--text-lg); color:#ffffff; margin-bottom:var(--sp-2);">Procurement Parameters</h3>
+              
+              <div class="input-group">
+                <label class="input-label" for="calc-qty-slider">
+                  <span>Order Quantity (Units)</span>
+                  <span id="calc-qty-val" style="color:var(--accent-cyan); font-weight:700;">5,000 units</span>
+                </label>
+                <input type="range" id="calc-qty-slider" class="input-slider" min="1000" max="30000" step="500" value="5000" />
+              </div>
+
+              <div class="input-group">
+                <label class="input-label" for="calc-origin-select">Supplier Origin & Trade Policy</label>
+                <select id="calc-origin-select" class="select-custom">
+                  <option value="africa">Verified African Supplier (AfCFTA 0% Preferential Duty)</option>
+                  <option value="asia">External Import - Asia (20% Standard Customs Tariff)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label" for="calc-corridor-select">Trade Corridor</label>
+                <select id="calc-corridor-select" class="select-custom">
+                  <option value="NG_GH">Nigeria ⇄ Ghana (Lagos / Tema)</option>
+                  <option value="KE_UG">Kenya ⇄ Uganda (Mombasa / Kampala)</option>
+                  <option value="ZA_ZM">South Africa ⇄ Zambia (JHB / Lusaka)</option>
+                </select>
+              </div>
+
+              <div id="calc-afcfta-status" style="font-size:var(--text-xs); font-weight:600; padding:10px 14px; background:rgba(255,255,255,0.03); border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+                <span style="color:var(--accent-emerald);">● AfCFTA 0% Preferential Duty Qualified</span>
+              </div>
+            </div>
+
+            <!-- Cost Breakdown Card -->
+            <div class="calc-breakdown">
+              <div>
+                <h3 style="font-size:var(--text-lg); color:#ffffff; margin-bottom:var(--sp-4);">Audited Landed Breakdown</h3>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">FOB Product Total</span>
+                  <span id="calc-val-fob" style="font-weight:700; color:#ffffff;">$18,400</span>
+                </div>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">Freight & Container Logistics</span>
+                  <span id="calc-val-freight" style="font-weight:700; color:#ffffff;">$1,850</span>
+                </div>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">Customs Duty Tariff</span>
+                  <span id="calc-val-duty" class="afcfta-tag">$0 (0% AfCFTA)</span>
+                </div>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">Import VAT (Local Settlement)</span>
+                  <span id="calc-val-vat" style="font-weight:700; color:#ffffff;">$2,300</span>
+                </div>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">Marine Cargo Insurance</span>
+                  <span id="calc-val-insurance" style="font-weight:700; color:#ffffff;">$160</span>
+                </div>
+                <div class="breakdown-row">
+                  <span style="color:var(--text-secondary);">TradeOS Escrow Protection (1%)</span>
+                  <span id="calc-val-platform" style="font-weight:700; color:#ffffff;">$184</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="breakdown-row total">
+                  <span>Total Landed Cost</span>
+                  <span id="calc-val-total">$22,910</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:var(--text-xs);">
+                  <span style="color:var(--text-tertiary);">Per Unit Landed: <strong id="calc-val-unit-landed" style="color:#ffffff;">$4.58</strong></span>
+                  <span style="color:var(--accent-emerald); font-weight:700;">Net Saving: <span id="calc-val-savings">$3,540</span></span>
+                  <span style="color:var(--accent-cyan); font-weight:700;" id="calc-val-days-saved">30 Days Faster</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             Platform Comparison Matrix
+             ==================================================================== -->
+        <div class="comparison-section">
+          <div style="text-align:center; max-width:760px; margin:0 auto var(--sp-8);">
+            <div class="workspace-badge">COMPETITIVE ARCHITECTURE</div>
+            <h2 style="font-size:var(--text-3xl); margin-bottom:var(--sp-2);">Institutional B2B Trade Infrastructure vs. Legacy Channels</h2>
+            <p>Cross-border commercial procurement requires automated tariff valuation, verifiable KYB legal counterparty credentials, milestone escrow settlement, and multi-tier governance—capabilities fundamentally absent from retail directories and informal broker networks.</p>
+          </div>
+
+          <div class="comp-table-wrapper">
+            <table class="comp-table" aria-label="Competitive Comparison Matrix">
+              <thead>
+                <tr>
+                  <th scope="col">Workflow Dimension</th>
+                  <th scope="col" class="highlight">TradeOS Africa</th>
+                  <th scope="col">Global Export Portals</th>
+                  <th scope="col">Regional Retail Marketplaces</th>
+                  <th scope="col">Informal Import Brokers</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Trade Focus</strong></td>
+                  <td class="highlight">AfCFTA & Cross-Border B2B</td>
+                  <td>Global Asian Export Directory</td>
+                  <td>Consumer B2C & Retail</td>
+                  <td>Unregulated ad-hoc imports</td>
+                </tr>
+                <tr>
+                  <td><strong>Landed Cost Engine</strong></td>
+                  <td class="highlight">Automated: Tariff, VAT, Freight</td>
+                  <td>None (Buyer figures it out)</td>
+                  <td>Retail shipping fee only</td>
+                  <td>Unpredictable port demurrage</td>
+                </tr>
+                <tr>
+                  <td><strong>Payment & Escrow</strong></td>
+                  <td class="highlight">PAPSS, Mobile Money, Milestone Escrow</td>
+                  <td>Trade Assurance (US wire/cards)</td>
+                  <td>Consumer cards / Cash-on-delivery</td>
+                  <td>100% upfront risk to broker</td>
+                </tr>
+                <tr>
+                  <td><strong>Document Vault</strong></td>
+                  <td class="highlight">AfCFTA Certificate of Origin, BL, Invoices</td>
+                  <td>Unstructured PDF attachments</td>
+                  <td>Standard retail receipt</td>
+                  <td>Lost paper slips & WhatsApp photos</td>
+                </tr>
+                <tr>
+                  <td><strong>ERP & Shopify Sync</strong></td>
+                  <td class="highlight">Native GraphQL & Webhooks (Shopify/SAP)</td>
+                  <td>Manual portal uploads</td>
+                  <td>Seller Center manual entry</td>
+                  <td>None (Excel spreadsheets)</td>
+                </tr>
+                <tr>
+                  <td><strong>Enterprise Governance</strong></td>
+                  <td class="highlight">3-Tier Approval Chains, Budgets & Audits</td>
+                  <td>Individual buyer logins</td>
+                  <td>Consumer accounts</td>
+                  <td>Zero audit trail</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VIEW 2: ENTERPRISE BUYER PROCUREMENT WORKSPACE
+         ==================================================================== -->
+    <section class="view-panel" id="view-control-room" aria-labelledby="control-room-main-title">
+      <div class="container">
+        
+        <div class="control-room-header">
+          <div class="workspace-badge">ENTERPRISE BUYER WORKSPACE • GOLDCOAST SOLAR EPC LTD (GHANA)</div>
+          <div class="workspace-title-row">
+            <div class="workspace-title-group">
+              <h1 id="control-room-main-title">Enterprise Buyer Procurement Workspace</h1>
+              <p class="workspace-meta">Budget Code: GH-SOL-2026-09 • Audit Trail Compliant • Sovereign Escrow Active</p>
+            </div>
+            <div style="display:flex; gap:var(--sp-3);">
+              <button class="btn-secondary" onclick="window.TradeOS.showToast('Generating Q4 Procurement Audit PDF...', 'info')">
+                Export Audit Ledger
+              </button>
+              <button class="btn-accent" onclick="window.TradeOS.showToast('RFQ Creation wizard ready', 'info')">
+                + Create New RFQ
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="kpi-deck" role="region" aria-label="Procurement Key Performance Indicators">
+          <div class="kpi-card">
+            <div class="kpi-label">Open RFQs Active</div>
+            <div class="kpi-num">12</div>
+            <div class="kpi-sub">3 pending supplier quotes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Awaiting Internal Approval</div>
+            <div class="kpi-num">3</div>
+            <div class="kpi-sub">PO-2026-8812 ready for CPO</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Verified Suppliers</div>
+            <div class="kpi-num">148</div>
+            <div class="kpi-sub">100% KYB & AfCFTA checked</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Projected Landed-Cost Savings</div>
+            <div class="kpi-num">£214,000</div>
+            <div class="kpi-sub">▲ 18.4% vs Asian import baseline</div>
+          </div>
+        </div>
+
+        <!-- Institutional Procurement Tender: Top Active RFQ -->
+        <div class="procurement-rfq-card">
+          <div class="rfq-header-banner">
+            <div>
+              <span class="rfq-badge-active">ACTIVE PROCUREMENT TENDER • #RFQ-2026-9041</span>
+              <h2 style="font-size:var(--text-2xl); color:#ffffff; margin-top:6px;">Solar Mounting Brackets & Clamps — 5,000 units</h2>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase;">REQUIRED DELIVERY</span>
+              <div style="font-size:var(--text-md); font-weight:700; color:#ffffff;">Accra / Tema in 21 days</div>
+            </div>
+          </div>
+
+          <div class="rfq-main-grid">
+            <div class="rfq-detail-pane">
+              <p style="margin-bottom:var(--sp-4);">High-tensile aluminum structural mounting hardware for 2.4MW commercial rooftop installation in Accra Industrial Area. Corrosion-proof for Gulf of Guinea marine atmosphere.</p>
+              
+              <div class="rfq-specs-list">
+                <div class="spec-item">
+                  <div class="label">MATERIAL SPECIFICATION</div>
+                  <div class="value">AL6063-T6 Extruded Anodized</div>
+                </div>
+                <div class="spec-item">
+                  <div class="label">CORRIDOR / DESTINATION</div>
+                  <div class="value">Lagos (NG) ➔ Tema Port (GH)</div>
+                </div>
+                <div class="spec-item">
+                  <div class="label">REQUIRED DATE</div>
+                  <div class="value">Nov 20, 2026 (30 Days)</div>
+                </div>
+                <div class="spec-item">
+                  <div class="label">INCOTERMS RULE</div>
+                  <div class="value">CIF Tema Port (Zero AfCFTA Tariff)</div>
+                </div>
+              </div>
+
+              <!-- Live Supplier Scorecard for Top Match -->
+              <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-hairline); border-radius:var(--radius-lg); padding:var(--sp-4);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="font-size:var(--text-xs); font-weight:700; color:var(--accent-cyan);">TOP MATCHED SUPPLIER TRUST PROFILE</span>
+                  <span style="font-size:11px; color:var(--accent-emerald); font-weight:700;">TRUST SCORE: 98/100</span>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; font-size:11px;">
+                  <div><span style="color:var(--text-tertiary);">Entity:</span> <strong style="color:#ffffff;">Helios Fab Ltd</strong></div>
+                  <div><span style="color:var(--text-tertiary);">KYB Status:</span> <strong style="color:var(--accent-emerald);">Verified Tier-1</strong></div>
+                  <div><span style="color:var(--text-tertiary);">Completed Exports:</span> <strong style="color:#ffffff;">4 Vessels</strong></div>
+                  <div><span style="color:var(--text-tertiary);">Dispute Rate:</span> <strong style="color:var(--accent-emerald);">0.0%</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quote Comparison Candidates -->
+            <div class="quote-comparison-box">
+              <span style="font-size:var(--text-xs); font-weight:700; color:var(--text-tertiary); text-transform:uppercase;">Quotes Received (3 Verified)</span>
+
+              <!-- Candidate 1: Helios Fab -->
+              <div class="quote-candidate selected" data-quote-id="Q-01">
+                <div class="quote-top-row">
+                  <span class="supplier-name">
+                    Helios Aluminum Fab (Lagos, NG)
+                    <span class="supplier-trust-pill">98 Score</span>
+                  </span>
+                  <span style="font-size:11px; color:var(--accent-emerald); font-weight:700;">★ Best Landed</span>
+                </div>
+                <div class="quote-pricing-grid">
+                  <div>
+                    <span style="font-size:11px; color:var(--text-tertiary);">FOB: $18,400 ($3.68/u)</span> • 21 Days
+                  </div>
+                  <div class="landed-callout">
+                    Landed: $22,910
+                  </div>
+                </div>
+              </div>
+
+              <!-- Candidate 2: China Import -->
+              <div class="quote-candidate" data-quote-id="Q-02">
+                <div class="quote-top-row">
+                  <span class="supplier-name">
+                    Zhejiang Solar Hardware (Ningbo, CN)
+                    <span class="supplier-trust-pill" style="color:var(--accent-amber); background:rgba(245,158,11,0.15);">89 Score</span>
+                  </span>
+                  <span style="font-size:11px; color:var(--accent-amber);">+20% Duty</span>
+                </div>
+                <div class="quote-pricing-grid">
+                  <div>
+                    <span style="font-size:11px; color:var(--text-tertiary);">FOB: $16,800 ($3.36/u)</span> • 48 Days
+                  </div>
+                  <div style="font-size:var(--text-md); font-weight:700; color:var(--text-secondary);">
+                    Landed: $26,450
+                  </div>
+                </div>
+              </div>
+
+              <!-- Candidate 3: Cape Town -->
+              <div class="quote-candidate" data-quote-id="Q-03">
+                <div class="quote-top-row">
+                  <span class="supplier-name">
+                    Cape Renewables (Cape Town, SA)
+                    <span class="supplier-trust-pill">94 Score</span>
+                  </span>
+                  <span style="font-size:11px; color:var(--accent-emerald);">AfCFTA</span>
+                </div>
+                <div class="quote-pricing-grid">
+                  <div>
+                    <span style="font-size:11px; color:var(--text-tertiary);">FOB: $19,500 ($3.90/u)</span> • 18 Days
+                  </div>
+                  <div style="font-size:var(--text-md); font-weight:700; color:var(--text-secondary);">
+                    Landed: $24,100
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow Operations: 3-Tier PO Approval & Escrow Milestone -->
+        <div class="workflow-ops-grid">
+          <!-- 3-Tier Approval Chain -->
+          <div class="ops-panel">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              PO-2026-8812 Governance Chain
+            </h3>
+            
+            <div class="approval-chain">
+              <div class="approval-step approved">
+                <div class="role-info">
+                  <div class="role-icon">✓</div>
+                  <div>
+                    <strong style="font-size:var(--text-xs); color:#ffffff;">Procurement Lead (Kwame Asante)</strong>
+                    <div class="role-status" style="font-size:11px; color:var(--accent-emerald);">Approved Oct 19, 09:14</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">SHA-e918</span>
+              </div>
+
+              <div class="approval-step approved">
+                <div class="role-info">
+                  <div class="role-icon">✓</div>
+                  <div>
+                    <strong style="font-size:var(--text-xs); color:#ffffff;">Head of Engineering (Dr. Mensah Osei)</strong>
+                    <div class="role-status" style="font-size:11px; color:var(--accent-emerald);">Spec Validated Oct 19, 14:32</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">SHA-4402</span>
+              </div>
+
+              <div class="approval-step approved" id="step-cpo-approval">
+                <div class="role-info">
+                  <div class="role-icon">✓</div>
+                  <div>
+                    <strong style="font-size:var(--text-xs); color:#ffffff;">Chief Procurement Officer (Ama Agyemang)</strong>
+                    <div class="role-status" style="font-size:11px; color:var(--accent-emerald);">Approved Oct 20, 11:05</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">SHA-8812</span>
+              </div>
+            </div>
+
+            <div style="margin-top:var(--sp-4);">
+              <button class="btn-secondary" id="btn-cpo-approve" style="width:100%;" disabled>
+                ✓ Purchase Order Fully Executed & Audited
+              </button>
+            </div>
+          </div>
+
+          <!-- Escrow Milestone Control -->
+          <div class="ops-panel">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Pan-African Escrow Protection (PAPSS)
+            </h3>
+
+            <div class="escrow-vault-card">
+              <div class="escrow-status-header">
+                <div>
+                  <span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase;">TOTAL PROTECTED ESCROW</span>
+                  <div style="font-size:var(--text-2xl); font-weight:800; color:#ffffff;">$22,910.00 USD</div>
+                </div>
+                <div style="text-align:right;">
+                  <span id="escrow-status-text" style="font-size:11px; font-weight:700; color:var(--accent-cyan);">Deposit Locked (30%)</span>
+                </div>
+              </div>
+
+              <div class="escrow-bar-track">
+                <div class="escrow-bar-fill" id="escrow-fill-bar"></div>
+              </div>
+
+              <div class="escrow-milestone-pills">
+                <div class="milestone-pill completed">
+                  <strong>Milestone 1 (30%): $6,873</strong><br>
+                  <span style="color:var(--accent-emerald);">Locked in Central Escrow</span>
+                </div>
+                <div class="milestone-pill" id="milestone-pill-2">
+                  <strong>Milestone 2 (70%): $16,037</strong><br>
+                  <span style="color:var(--text-muted);">Release upon Tema Port Inspection</span>
+                </div>
+              </div>
+
+              <button class="btn-accent" id="btn-release-escrow" style="width:100%;">
+                Release Final Escrow ($16,037)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verifiable Document Vault -->
+        <div style="margin-bottom:var(--sp-12);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--sp-4);">
+            <h3 style="font-size:var(--text-lg); color:#ffffff;">Cryptographic Document Vault</h3>
+            <span style="font-size:11px; color:var(--text-tertiary); font-family:var(--font-mono);">Tamper-evident AfCFTA hash ledger</span>
+          </div>
+
+          <div class="document-vault-grid">
+            <div class="doc-vault-item">
+              <div class="doc-info">
+                <div class="doc-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                </div>
+                <div>
+                  <div class="doc-title">AfCFTA Certificate of Origin</div>
+                  <div class="doc-sub">#NG-GH-0892 • 0% Duty Stamp</div>
+                </div>
+              </div>
+              <button class="btn-secondary btn-download-doc" data-doc-name="AfCFTA_Certificate_of_Origin_GH_NG_0892.pdf" aria-label="Download AfCFTA Certificate of Origin">
+                Download
+              </button>
+            </div>
+
+            <div class="doc-vault-item">
+              <div class="doc-info">
+                <div class="doc-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div>
+                  <div class="doc-title">Ocean Bill of Lading</div>
+                  <div class="doc-sub">BL-99321 • MSC West Africa</div>
+                </div>
+              </div>
+              <button class="btn-secondary btn-download-doc" data-doc-name="Ocean_Bill_of_Lading_BL_99321.pdf" aria-label="Download Ocean Bill of Lading">
+                Download
+              </button>
+            </div>
+
+            <div class="doc-vault-item">
+              <div class="doc-info">
+                <div class="doc-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div>
+                  <div class="doc-title">Commercial Tax Invoice</div>
+                  <div class="doc-sub">INV-4412 • $22,910 Landed</div>
+                </div>
+              </div>
+              <button class="btn-secondary btn-download-doc" data-doc-name="Commercial_Tax_Invoice_INV_4412.pdf" aria-label="Download Commercial Tax Invoice">
+                Download
+              </button>
+            </div>
+
+            <div class="doc-vault-item">
+              <div class="doc-info">
+                <div class="doc-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div>
+                  <div class="doc-title">Marine Cargo Insurance</div>
+                  <div class="doc-sub">AXA-Af-77 • $30,000 Cover</div>
+                </div>
+              </div>
+              <button class="btn-secondary btn-download-doc" data-doc-name="Cargo_Insurance_Policy_AXA_Af_77.pdf" aria-label="Download Cargo Insurance Policy">
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VIEW 3: SUPPLIER COMMERCE HUB — SHOPIFY & KEYSTONE B2B ADMIN
+         ==================================================================== -->
+    <section class="view-panel" id="view-shopify-admin" aria-labelledby="supplier-main-title">
+      <div class="container">
+        
+        <div class="supplier-portal-header">
+          <div class="workspace-badge">SUPPLIER PORTAL: HELIOS ALUMINUM FAB LTD (LAGOS, NIGERIA)</div>
+          <div class="workspace-title-row">
+            <div>
+              <h1 id="supplier-main-title">Supplier Operations & B2B Catalog</h1>
+              <p class="workspace-meta">Enterprise B2B Catalog Synchronization • Real-Time Stock & Multi-Tier Wholesale Pricing</p>
+            </div>
+            <div style="display:flex; gap:var(--sp-3);">
+              <button class="btn-secondary" id="btn-open-quote-modal">
+                Prepare RFQ Quote
+              </button>
+              <button class="btn-primary" id="btn-open-add-product">
+                + Add Product (SKU)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Supplier Store Status Bar -->
+        <div class="supplier-status-strip">
+          <div class="supplier-store-meta">
+            <span class="shopify-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 7.5L16 2 4.5 4.5 3 20.5 17 23l4-2.5z"/></svg>
+              Shopify Enterprise Connected
+            </span>
+            <div>
+              <div class="store-name-text">Helios Fab Storefront (Store ID: #SHOPIFY-NG-4819)</div>
+              <div style="font-size:11px; color:var(--accent-emerald);">✓ AfCFTA Tier-1 Verified Manufacturer • API Webhooks Active</div>
+            </div>
+          </div>
+
+          <div class="supplier-sync-stats">
+            <div class="sync-stat-item">
+              <span class="sync-stat-label">Catalog Synced</span>
+              <span class="sync-stat-val" id="catalog-total-count">4 Products Synced</span>
+            </div>
+            <div class="sync-stat-item">
+              <span class="sync-stat-label">B2B Price Lists</span>
+              <span class="sync-stat-val">3 Tiers</span>
+            </div>
+            <div class="sync-stat-item">
+              <span class="sync-stat-label">Open RFQs</span>
+              <span class="sync-stat-val" style="color:var(--accent-cyan);">7 Matched</span>
+            </div>
+            <div class="sync-stat-item">
+              <span class="sync-stat-label">Orders to Fulfil</span>
+              <span class="sync-stat-val">2 Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Incoming RFQ Urgent Match Banner -->
+        <div class="incoming-rfq-banner">
+          <div class="rfq-match-text">
+            <h4>Incoming RFQ: 5,000 Solar Mounting Brackets — Accra, Ghana</h4>
+            <p>Your suggested quote: $18,400 ($3.68/unit) • Lead time: 21 days • Payment: 30% deposit, 70% delivery</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn-accent" onclick="window.TradeOS.openModal('modal-submit-quote')">
+              Prepare Quote Response
+            </button>
+            <button class="btn-secondary" data-switch-view="control-room">
+              View Buyer Requirements
+            </button>
+          </div>
+        </div>
+
+        <!-- Supplier Toolbar with View Mode Toggle -->
+        <div class="supplier-toolbar">
+          <div class="toolbar-search-group">
+            <input type="text" id="catalog-search-input" class="input-text" placeholder="Search by SKU, title, or category..." />
+          </div>
+
+          <div class="view-mode-toggle">
+            <button class="view-toggle-btn active" id="btn-view-grid" aria-label="Icon Card Grid View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              Icon Grid View
+            </button>
+            <button class="view-toggle-btn" id="btn-view-table" aria-label="Detailed List Table View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              Data List View
+            </button>
+          </div>
+        </div>
+
+        <!-- Products Container 1: Card Grid View -->
+        <div class="product-cards-grid" id="products-cards-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <!-- Products Container 2: Table List View -->
+        <div class="product-table-wrapper" id="products-table-wrapper">
+          <table class="product-table" aria-label="Synchronized Product Catalog Table">
+            <thead>
+              <tr>
+                <th scope="col">Media</th>
+                <th scope="col">Product & SKU</th>
+                <th scope="col">Category</th>
+                <th scope="col">Inventory Level</th>
+                <th scope="col">B2B Price</th>
+                <th scope="col">MOQ</th>
+                <th scope="col">Lead Time</th>
+                <th scope="col">AfCFTA Rule</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body">
+              <!-- Rendered dynamically by app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Live Shopify Admin GraphQL & Webhook Terminal Console -->
+        <div class="graphql-terminal" style="margin-bottom:var(--sp-12);">
+          <div class="terminal-header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="pulsing-dot"></span>
+              <strong>SHOPIFY ADMIN GRAPHQL & WEBHOOK STREAM (v2026-10)</strong>
+            </div>
+            <button class="btn-secondary" id="btn-test-webhook" style="padding:2px 8px; font-size:10px;">
+              Test Webhook Ping
+            </button>
+          </div>
+          <div class="terminal-logs" id="webhook-terminal-logs">
+            <!-- Dynamic Webhook Logs -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VIEW 4: AFCFTA RADAR, LOGISTICS & ESCROW OPERATIONS
+         ==================================================================== -->
+    <section class="view-panel" id="view-operations" aria-labelledby="operations-main-title">
+      <div class="container">
+        
+        <div class="operations-header">
+          <div class="workspace-badge">PAN-AFRICAN TRADE INFRASTRUCTURE</div>
+          <div class="workspace-title-row">
+            <div>
+              <h1 id="operations-main-title">AfCFTA Corridor Radar & Settlement</h1>
+              <p class="workspace-meta">Real-time Cross-Border Freight Tracking, Port Clearance & Escrow Milestones</p>
+            </div>
+            <div>
+              <button class="btn-primary" id="btn-advance-stage">
+                Advance Transit Milestone
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corridor Selector Bar -->
+        <div class="corridor-selector-bar">
+          <button class="corridor-pill-btn active" data-corridor="NG_GH">
+            <span>●</span> Nigeria ⇄ Ghana (Lagos / Tema)
+          </button>
+          <button class="corridor-pill-btn" data-corridor="KE_UG">
+            <span>●</span> Kenya ⇄ Uganda (Mombasa / Kampala)
+          </button>
+          <button class="corridor-pill-btn" data-corridor="ZA_ZM">
+            <span>●</span> South Africa ⇄ Zambia (JHB / Lusaka)
+          </button>
+        </div>
+
+        <!-- Corridor Live Map Banner -->
+        <div class="corridor-map-hero">
+          <img src="assets/corridor_logistics.jpg" alt="Real-time AfCFTA transit corridor tracking map between Lagos and Tema" />
+          <div class="corridor-map-overlay">
+            <div class="corridor-live-stats-badge">
+              <span class="pulsing-dot"></span>
+              <span id="corridor-hero-name">Gulf of Guinea Primary Corridor: Lagos (Nigeria) ⇄ Tema/Accra (Ghana)</span>
+            </div>
+
+            <div class="corridor-bottom-stats">
+              <div class="corridor-bottom-item">
+                <span class="label">Total Trade Volume</span>
+                <span class="val" id="corridor-hero-volume">$24.8M Verified</span>
+              </div>
+              <div class="corridor-bottom-item">
+                <span class="label">Customs Protocol</span>
+                <span class="val" id="corridor-hero-tariff">0% AfCFTA Preferential</span>
+              </div>
+              <div class="corridor-bottom-item">
+                <span class="label">Average Transit Time</span>
+                <span class="val">42 Hours Sea / 3 Days Road</span>
+              </div>
+              <div class="corridor-bottom-item">
+                <span class="label">Settlement Rail</span>
+                <span class="val">PAPSS Local Currencies</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9-Stage Verifiable Timeline -->
+        <div class="timeline-section">
+          <div class="timeline-header">
+            <div>
+              <h3 style="font-size:var(--text-lg); color:#ffffff;">Order #PO-2026-8812 Verifiable Lifecycle</h3>
+              <p style="font-size:var(--text-xs); color:var(--text-secondary);">5,000 Solar Mounting Brackets: Lagos Factory ➔ Tema Port ➔ Accra Warehouse</p>
+            </div>
+            <span style="font-size:11px; font-weight:700; color:var(--accent-cyan); background:rgba(56,189,248,0.15); padding:4px 10px; border-radius:var(--radius-full);">
+              In Transit • Gulf of Guinea
+            </span>
+          </div>
+
+          <div class="timeline-stepper" id="order-timeline-stepper">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         VIEW 5: ENTERPRISE API & WEBHOOK GATEWAY
+         ==================================================================== -->
+    <section class="view-panel" id="view-api" aria-labelledby="api-main-title">
+      <div class="container" style="padding-top:var(--sp-8); padding-bottom:var(--sp-16);">
+        
+        <div style="margin-bottom:var(--sp-8);">
+          <div class="workspace-badge">DEVELOPER & ERP INTEGRATIONS</div>
+          <h1 id="api-main-title" style="font-size:var(--text-3xl); margin-bottom:var(--sp-2);">Open REST & GraphQL Trade API</h1>
+          <p>Every core workflow in TradeOS is programmatically accessible. Connect SAP, Oracle NetSuite, Odoo, QuickBooks, or Shopify.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-8);">
+          <!-- API Explorer -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-xl); padding:var(--sp-6);">
+            <h3 style="font-size:var(--text-md); color:#ffffff; margin-bottom:var(--sp-4);">GraphQL Query: Sourcing & Landed Quotes</h3>
+            <div style="background:#05070a; border:1px solid var(--border-hairline); border-radius:var(--radius-md); padding:var(--sp-4); font-family:var(--font-mono); font-size:12px; color:var(--text-secondary); overflow-x:auto;">
+<pre>query GetLandedCostQuote {
+  rfq(id: "RFQ-2026-9041") {
+    sku
+    quantity
+    corridor: "NG_GH"
+    landedCost {
+      fobPriceUSD: 18400
+      freightUSD: 1850
+      afcftaDutyUSD: 0
+      vatUSD: 2300
+      totalLandedUSD: 22910
+      trustScore: 98
+    }
+  }
+}</pre>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center; margin-top:var(--sp-4);">
+              <button class="btn-accent" id="btn-execute-graphql">
+                Execute Live Query
+              </button>
+              <span id="graphql-exec-status" style="font-size:11px; color:var(--text-tertiary);"></span>
+            </div>
+            <div id="graphql-live-result" style="display:none; margin-top:var(--sp-3); background:#020408; border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius-md); padding:var(--sp-4); font-family:var(--font-mono); font-size:11px; color:var(--accent-emerald); overflow-x:auto;">
+              <pre id="graphql-live-json"></pre>
+            </div>
+          </div>
+
+          <!-- Webhooks Specification -->
+          <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius-xl); padding:var(--sp-6);">
+            <h3 style="font-size:var(--text-md); color:#ffffff; margin-bottom:var(--sp-4);">Registered Enterprise Webhooks</h3>
+            <div style="display:flex; flex-direction:column; gap:var(--sp-3); font-size:var(--text-xs);">
+              <div style="padding:10px; background:rgba(0,0,0,0.3); border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+                <strong style="color:var(--accent-cyan);">tradeos.escrow.locked</strong><br>
+                Triggered when PAPSS or bank deposit confirms milestone funding.
+              </div>
+              <div style="padding:10px; background:rgba(0,0,0,0.3); border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+                <strong style="color:var(--accent-emerald);">tradeos.customs.cleared</strong><br>
+                Triggered when Ghana Revenue Authority validates AfCFTA certificate.
+              </div>
+              <div style="padding:10px; background:rgba(0,0,0,0.3); border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+                <strong style="color:var(--accent-amber);">tradeos.shopify.stock_sync</strong><br>
+                Bidirectional synchronization between Shopify inventory and TradeOS.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="font-weight:800; font-size:var(--text-md); color:#ffffff; margin-bottom:var(--sp-2);">TradeOS Africa</div>
+          <p style="font-size:var(--text-xs); line-height:1.6; max-width:320px;">
+            The enterprise operating system for African B2B trade, verified KYB trade identity, escrow settlement, and AfCFTA landed-cost intelligence.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Platform Workspaces</h5>
+          <ul>
+            <li><a href="#showcase" data-switch-view="showcase">Wholesale Sourcing</a></li>
+            <li><a href="#control-room" data-switch-view="control-room">Buyer Procurement</a></li>
+            <li><a href="#shopify-admin" data-switch-view="shopify-admin">Supplier Portal & ERP Sync</a></li>
+            <li><a href="#operations" data-switch-view="operations">Corridor Logistics & Escrow</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Regulatory & Standards</h5>
+          <ul>
+            <li><a href="javascript:void(0)" class="btn-open-compliance" data-section="afcfta">AfCFTA Rules of Origin</a></li>
+            <li><a href="javascript:void(0)" class="btn-open-compliance" data-section="papss">PAPSS Settlement Rail</a></li>
+            <li><a href="javascript:void(0)" class="btn-open-compliance" data-section="kyb">Digital Trade Identity & KYB</a></li>
+            <li><a href="javascript:void(0)" class="btn-open-compliance" data-section="security">Security & Data Residency</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Developer Infrastructure</h5>
+          <ul>
+            <li><a href="#api" data-switch-view="api">GraphQL Trade API</a></li>
+            <li><a href="#api" data-switch-view="api">Webhooks & ERP Gateway</a></li>
+            <li><a href="sitemap.xml">Sitemap</a></li>
+            <li><a href="robots.txt">Robots Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 TradeOS Africa Technologies. All rights reserved.</span>
+        <span>Sovereign AfCFTA Trade Rails • Operational Environment: Production Branded</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Add Product to Shopify Catalog -->
+  <div class="modal-overlay" id="modal-add-product" role="dialog" aria-modal="true" aria-labelledby="modal-add-prod-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-add-prod-title" style="font-size:var(--text-lg); color:#ffffff;">+ Add New Product to B2B Catalog</h3>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="form-add-product">
+        <div class="input-group" style="margin-bottom:var(--sp-3);">
+          <label class="input-label" for="add-prod-title">Product Name</label>
+          <input type="text" id="add-prod-title" name="title" class="input-text" required placeholder="e.g. 600W Bifacial Solar PV Module" />
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-3);">
+          <div class="input-group">
+            <label class="input-label" for="add-prod-sku">SKU Code</label>
+            <input type="text" id="add-prod-sku" name="sku" class="input-text" required placeholder="e.g. PV-BIF-600W" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="add-prod-category">Category</label>
+            <select id="add-prod-category" name="category" class="select-custom">
+              <option value="Solar Infrastructure">Solar Infrastructure</option>
+              <option value="Power Electronics">Power Electronics</option>
+              <option value="Energy Storage">Energy Storage</option>
+              <option value="Electrical Components">Electrical Components</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--sp-3); margin-bottom:var(--sp-3);">
+          <div class="input-group">
+            <label class="input-label" for="add-prod-stock">Stock Total</label>
+            <input type="number" id="add-prod-stock" name="stock" class="input-text" required value="1000" min="1" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="add-prod-b2b">B2B Wholesale ($)</label>
+            <input type="number" id="add-prod-b2b" name="b2bPrice" step="0.01" class="input-text" required value="45.00" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="add-prod-moq">Minimum Order (MOQ)</label>
+            <input type="number" id="add-prod-moq" name="moq" class="input-text" required value="50" min="1" />
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-4);">
+          <div class="input-group">
+            <label class="input-label" for="add-prod-lead">Lead Time (Days)</label>
+            <input type="number" id="add-prod-lead" name="leadTimeDays" class="input-text" required value="14" />
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:28px;">
+            <input type="checkbox" id="add-prod-afcfta" name="afcftaCertified" checked />
+            <label for="add-prod-afcfta" style="font-size:var(--text-xs); color:#ffffff; cursor:pointer;">AfCFTA Rule of Origin Qualified (0% Duty)</label>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:var(--sp-3);">
+          <button type="button" class="btn-secondary modal-backdrop-close">Cancel</button>
+          <button type="submit" class="btn-primary">Publish to Shopify B2B Store</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Submit Formal Quote Response -->
+  <div class="modal-overlay" id="modal-submit-quote" role="dialog" aria-modal="true" aria-labelledby="modal-quote-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-quote-title" style="font-size:var(--text-lg); color:#ffffff;">Submit B2B Quotation to Accra Buyer</h3>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="form-submit-quote">
+        <div style="background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.25); border-radius:var(--radius-md); padding:10px; margin-bottom:var(--sp-4); font-size:var(--text-xs);">
+          <strong>Target RFQ #RFQ-2026-9041:</strong> 5,000 Solar Mounting Brackets (AL6063-T6) for GoldCoast Solar EPC Ltd (Accra).
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-3);">
+          <div class="input-group">
+            <label class="input-label" for="quote-unit-price">Unit Price FOB ($)</label>
+            <input type="number" id="quote-unit-price" name="unitPrice" step="0.01" class="input-text" required value="3.68" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="quote-lead-time">Lead Time (Days)</label>
+            <input type="number" id="quote-lead-time" name="leadTimeDays" class="input-text" required value="21" />
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-4);">
+          <div class="input-group">
+            <label class="input-label" for="quote-incoterms">Incoterms</label>
+            <select id="quote-incoterms" name="incoterms" class="select-custom">
+              <option value="CIF Tema Port">CIF Tema Port (Zero AfCFTA Tariff)</option>
+              <option value="DDP Accra">DDP Accra Warehouse</option>
+              <option value="FOB Lagos">FOB Apapa Port, Lagos</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="quote-terms">Payment Terms</label>
+            <select id="quote-terms" name="paymentTerms" class="select-custom">
+              <option value="30% Escrow deposit, 70% delivery">30% PAPSS Escrow Deposit, 70% Delivery</option>
+              <option value="50% Deposit, 50% on Bill of Lading">50% Deposit, 50% on Bill of Lading</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:var(--sp-3);">
+          <button type="button" class="btn-secondary modal-backdrop-close">Cancel</button>
+          <button type="submit" class="btn-accent">Submit Quotation to Buyer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Institutional Compliance & Standards -->
+  <div class="modal-overlay" id="modal-compliance" role="dialog" aria-modal="true" aria-labelledby="modal-compliance-title">
+    <div class="modal-card" style="max-width:720px; max-height:85vh; overflow-y:auto;">
+      <div class="modal-header">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:var(--accent-cyan); text-transform:uppercase; letter-spacing:0.05em;">REGULATORY COMPLIANCE FRAMEWORK</span>
+          <h3 id="modal-compliance-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Institutional Trade Compliance & Protocols</h3>
+        </div>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <!-- Compliance Tabs Switcher -->
+      <div style="display:flex; gap:8px; margin-bottom:var(--sp-4); border-bottom:1px solid var(--border-hairline); padding-bottom:var(--sp-3); flex-wrap:wrap;">
+        <button class="compliance-tab-btn active" data-target="comp-afcfta" style="background:rgba(56,189,248,0.15); color:var(--accent-cyan); border:1px solid rgba(56,189,248,0.3); border-radius:var(--radius-full); padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer;">AfCFTA Rules of Origin</button>
+        <button class="compliance-tab-btn" data-target="comp-papss" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-hairline); border-radius:var(--radius-full); padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer;">PAPSS Settlement Rail</button>
+        <button class="compliance-tab-btn" data-target="comp-kyb" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-hairline); border-radius:var(--radius-full); padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer;">Digital Trade Identity (KYB)</button>
+        <button class="compliance-tab-btn" data-target="comp-security" style="background:rgba(255,255,255,0.05); color:var(--text-secondary); border:1px solid var(--border-hairline); border-radius:var(--radius-full); padding:6px 14px; font-size:12px; font-weight:600; cursor:pointer;">Security & Data Residency</button>
+      </div>
+
+      <!-- Tab Content 1: AfCFTA -->
+      <div class="compliance-tab-pane" id="comp-afcfta">
+        <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:var(--sp-4);">
+          <div style="font-weight:700; color:var(--accent-emerald); font-size:var(--text-sm);">✓ 0% Preferential Duty Clearance Active (Protocol Article 7)</div>
+          <p style="font-size:var(--text-xs); margin-top:4px; color:var(--text-secondary);">
+            Helios Aluminum Fab Ltd (Nigeria) qualifies under AfCFTA Origin Criteria (Value Addition > 35% within ECOWAS). Goods clear Tema Port (Ghana) exempt from standard 20% customs duty.
+          </p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); font-size:var(--text-xs); margin-bottom:var(--sp-4);">
+          <div style="background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+            <div style="color:var(--text-tertiary);">CERTIFICATE HASH</div>
+            <div style="font-family:var(--font-mono); color:#ffffff; font-weight:600; word-break:break-all;">0x7a89f921...c4b2e8</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+            <div style="color:var(--text-tertiary);">HS CODE & TARIFF LINE</div>
+            <div style="color:#ffffff; font-weight:600;">7610.90.00 (Aluminum Structures)</div>
+          </div>
+        </div>
+        <p style="font-size:var(--text-xs); line-height:1.6; color:var(--text-secondary);">
+          Automated generation and verification of digital AfCFTA Certificates of Origin in cooperation with national trade authorities (Nigerian Export Promotion Council & Ghana National AfCFTA Coordination Office).
+        </p>
+      </div>
+
+      <!-- Tab Content 2: PAPSS -->
+      <div class="compliance-tab-pane" id="comp-papss" style="display:none;">
+        <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.25); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:var(--sp-4);">
+          <div style="font-weight:700; color:var(--accent-cyan); font-size:var(--text-sm);">Pan-African Payment and Settlement System (PAPSS)</div>
+          <p style="font-size:var(--text-xs); margin-top:4px; color:var(--text-secondary);">
+            Instant net local-currency settlement operating directly through African Central Banks (CBN & Bank of Ghana), eliminating expensive USD intermediary conversions and multi-day SWIFT routing delays.
+          </p>
+        </div>
+        <div style="font-size:var(--text-xs); line-height:1.6; color:var(--text-secondary); margin-bottom:var(--sp-4);">
+          <ul style="padding-left:18px;">
+            <li>Direct local conversion: Buyer pays in Ghana Cedis (GHS), Supplier receives Nigerian Naira (NGN).</li>
+            <li>Afreximbank $3.0 Billion adjustment guarantee facility backs milestone escrow releases.</li>
+            <li>Zero foreign exchange loss to third-party offshore correspondent banks.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: KYB -->
+      <div class="compliance-tab-pane" id="comp-kyb" style="display:none;">
+        <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:var(--sp-4);">
+          <div style="font-weight:700; color:var(--accent-amber); font-size:var(--text-sm);">Institutional Know-Your-Business (KYB) Verification</div>
+          <p style="font-size:var(--text-xs); margin-top:4px; color:var(--text-secondary);">
+            Every supplier and enterprise buyer undergoes automated legal entity verification with verified Corporate Registries (CAC Nigeria & RGD Ghana).
+          </p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); font-size:var(--text-xs); margin-bottom:var(--sp-4);">
+          <div style="background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+            <div style="color:var(--text-tertiary);">LEGAL ENTITY IDENTIFIER (LEI)</div>
+            <div style="color:#ffffff; font-weight:600; font-family:var(--font-mono);">984500A412F8812E90</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.02); padding:10px; border-radius:var(--radius-md); border:1px solid var(--border-hairline);">
+            <div style="color:var(--text-tertiary);">SANCTIONS & PEP SCREENING</div>
+            <div style="color:var(--accent-emerald); font-weight:600;">Passed (UN, AU, OFAC)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 4: Security -->
+      <div class="compliance-tab-pane" id="comp-security" style="display:none;">
+        <div style="background:rgba(168,85,247,0.08); border:1px solid rgba(168,85,247,0.25); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:var(--sp-4);">
+          <div style="font-weight:700; color:#c084fc; font-size:var(--text-sm);">Sovereign Data Residency & Cryptographic Audit Trails</div>
+          <p style="font-size:var(--text-xs); margin-top:4px; color:var(--text-secondary);">
+            Full regulatory alignment with Nigeria Data Protection Regulation (NDPR) and Ghana Data Protection Act (Act 843).
+          </p>
+        </div>
+        <div style="font-size:var(--text-xs); line-height:1.6; color:var(--text-secondary);">
+          <p>
+            • Primary Data Centers: MDXi Tier-3 (Lagos) and MainOne Tier-3 (Accra).<br>
+            • End-to-end encryption with AES-256-GCM for trade documents and TLS 1.3 for API endpoints.<br>
+            • Immutable SHA-256 hash chains for all purchase orders, approval signatures, and escrow releases.
+          </p>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-top:var(--sp-6); gap:var(--sp-3);">
+        <button type="button" class="btn-primary modal-backdrop-close">Close Compliance Overview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Floating Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/landed-cost.js"></script>
+  <script src="js/motion.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

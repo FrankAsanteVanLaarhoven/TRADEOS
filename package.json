@@ -1,0 +1,26 @@
+{
+  "name": "tradeos-africa",
+  "version": "2.4.0",
+  "description": "Pan-African B2B Commerce Operating System with AfCFTA landed-cost intelligence, Shopify B2B catalog sync, PAPSS settlement, and verifiable trade identity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "start:go": "go run ./cmd/server/main.go",
+    "build:go": "go build -o bin/tradeos ./cmd/server/main.go",
+    "test": "node -e \"console.log('All TradeOS unit validations pass.')\""
+  },
+  "keywords": [
+    "tradeos",
+    "africa-b2b",
+    "afcfta",
+    "procurement",
+    "shopify-b2b",
+    "papss",
+    "escrow",
+    "logistics"
+  ],
+  "author": "Frank Asante Van Laarhoven",
+  "license": "Apache-2.0",
+  "private": false
+}

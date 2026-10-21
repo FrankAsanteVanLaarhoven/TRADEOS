@@ -1,0 +1,227 @@
+/* ==========================================================================
+   TradeOS Africa - AfCFTA Corridors & Escrow Operations
+   ========================================================================== */
+
+.operations-header {
+  padding: var(--sp-8) 0 var(--sp-6);
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: var(--sp-8);
+}
+
+.corridor-selector-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+  overflow-x: auto;
+  padding-bottom: var(--sp-2);
+}
+
+.corridor-pill-btn {
+  padding: 10px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.corridor-pill-btn.active {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+}
+
+/* Corridor Live Map Banner */
+.corridor-map-hero {
+  position: relative;
+  height: 420px;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: var(--sp-8);
+  box-shadow: var(--shadow-lg);
+}
+
+.corridor-map-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corridor-map-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 9, 14, 0.4) 0%, rgba(7, 9, 14, 0.85) 100%);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.corridor-live-stats-badge {
+  background: rgba(11, 15, 23, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-emerald);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.corridor-bottom-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--sp-4);
+  background: rgba(11, 15, 23, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-6);
+}
+
+.corridor-bottom-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.corridor-bottom-item .label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.corridor-bottom-item .val {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* 9-Stage Verifiable Timeline */
+.timeline-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-8);
+  margin-bottom: var(--sp-8);
+  backdrop-filter: blur(16px);
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-8);
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.timeline-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: relative;
+}
+
+.timeline-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  position: relative;
+}
+
+.timeline-step-row::before {
+  content: "";
+  position: absolute;
+  top: 36px;
+  bottom: -16px;
+  left: 17px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-step-row:last-child::before {
+  display: none;
+}
+
+.timeline-step-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-subtle);
+  color: var(--text-tertiary);
+  z-index: 2;
+}
+
+.timeline-step-row.completed .timeline-step-icon {
+  background: var(--accent-emerald);
+  border-color: var(--accent-emerald);
+  color: #07090e;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+}
+
+.timeline-step-row.in-progress .timeline-step-icon {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  color: #07090e;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
+}
+
+.timeline-step-row.completed::before {
+  background: var(--accent-emerald);
+}
+
+.timeline-step-content {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+}
+
+.timeline-step-row.in-progress .timeline-step-content {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.05);
+}
+
+.step-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.step-title {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: var(--text-sm);
+}
+
+.step-timestamp {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.step-desc {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
