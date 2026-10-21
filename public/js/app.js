@@ -228,7 +228,7 @@
         this.renderUberHaulageFleet();
       }
       if (viewId === 'shopify-admin') {
-        this.renderNativeCatalog();
+        this.renderProducts();
         this.renderFBTWarehouses();
         this.renderVendorPriceWatch();
         this.renderResellerHuntHub();

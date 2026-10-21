@@ -1074,6 +1074,14 @@
       this.notify("STAGE_ADVANCED", shipment);
     }
 
+    releaseFinalEscrow() {
+      if (this.activeOrder) {
+        this.activeOrder.escrowFinalReleased = true;
+      }
+      this.logWebhook("tradeos/escrow.released", `Manual escrow milestone release of $16,037 to supplier via GhIPSS/PAPSS settlement`);
+      this.notify("ESCROW_RELEASED", this.activeOrder);
+    }
+
     logWebhook(event, payload) {
       const now = new Date();
       const timeStr = now.toTimeString().split(' ')[0];
