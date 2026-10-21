@@ -33,13 +33,88 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/tokens.css?v=2.5.0">
-  <link rel="stylesheet" href="css/main.css?v=2.5.0">
-  <link rel="stylesheet" href="css/control-room.css?v=2.5.0">
-  <link rel="stylesheet" href="css/shopify-admin.css?v=2.5.0">
-  <link rel="stylesheet" href="css/operations.css?v=2.5.0">
+  <link rel="stylesheet" href="css/tokens.css?v=2.6.0">
+  <link rel="stylesheet" href="css/main.css?v=2.6.0">
+  <link rel="stylesheet" href="css/control-room.css?v=2.6.0">
+  <link rel="stylesheet" href="css/shopify-admin.css?v=2.6.0">
+  <link rel="stylesheet" href="css/operations.css?v=2.6.0">
 </head>
 <body>
+
+  <!-- Top Global Trading Clock & Sovereign Localization Bar -->
+  <aside class="top-utility-bar" role="complementary" aria-label="Global Trade Clocks and Localization">
+    <div class="container utility-bar-container">
+      
+      <!-- Live Ticking World Trading Clocks -->
+      <div class="world-clocks-ticker" id="world-clocks-ticker" aria-label="Global Financial and Manufacturing Centers">
+        <div class="clock-hub" data-tz="Africa/Lagos" title="Lagos, Nigeria (West Africa Time)">
+          <span class="hub-flag">🇳🇬</span>
+          <span class="hub-name">Lagos (WAT)</span>
+          <span class="hub-time" id="clock-lagos">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Africa/Accra" title="Accra, Ghana (Greenwich Mean Time)">
+          <span class="hub-flag">🇬🇭</span>
+          <span class="hub-name">Accra (GMT)</span>
+          <span class="hub-time" id="clock-accra">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Africa/Nairobi" title="Nairobi, Kenya (East Africa Time)">
+          <span class="hub-flag">🇰🇪</span>
+          <span class="hub-name">Nairobi (EAT)</span>
+          <span class="hub-time" id="clock-nairobi">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Africa/Johannesburg" title="Johannesburg, South Africa (South Africa Standard Time)">
+          <span class="hub-flag">🇿🇦</span>
+          <span class="hub-name">Joburg (SAST)</span>
+          <span class="hub-time" id="clock-jnb">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Europe/London" title="London, UK (Europe Trade Window)">
+          <span class="hub-flag">🇬🇧</span>
+          <span class="hub-name">London</span>
+          <span class="hub-time" id="clock-london">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Asia/Dubai" title="Dubai, UAE (Middle East Cargo Corridor)">
+          <span class="hub-flag">🇦🇪</span>
+          <span class="hub-name">Dubai (GST)</span>
+          <span class="hub-time" id="clock-dubai">--:--:--</span>
+        </div>
+        <div class="clock-hub" data-tz="Asia/Shanghai" title="Shanghai, China (East Asia Manufacturing)">
+          <span class="hub-flag">🇨🇳</span>
+          <span class="hub-name">Shanghai (CST)</span>
+          <span class="hub-time" id="clock-shanghai">--:--:--</span>
+        </div>
+      </div>
+
+      <!-- Localization & Currency Controls -->
+      <div class="utility-controls">
+        <!-- 30-Language Selector with Real-Time Full Page Translation -->
+        <div class="locale-select-wrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <label for="lang-select" class="sr-only">Platform Language</label>
+          <select id="lang-select" class="utility-select" aria-label="Select Platform Language">
+            <!-- Populated with 30 languages -->
+          </select>
+        </div>
+
+        <!-- Real-Time Multi-Currency Converter Dropdown -->
+        <div class="currency-select-wrap">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          <label for="currency-select" class="sr-only">Settlement Currency</label>
+          <select id="currency-select" class="utility-select" aria-label="Select Settlement Currency">
+            <option value="USD">USD ($)</option>
+            <option value="NGN">NGN (₦)</option>
+            <option value="GHS">GHS (GH₵)</option>
+            <option value="KES">KES (KSh)</option>
+            <option value="ZAR">ZAR (R)</option>
+            <option value="XOF">XOF (CFA)</option>
+            <option value="EGP">EGP (E£)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CNY">CNY (¥)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- Top Sticky Header Navigation -->
   <header class="header-nav" role="banner">
@@ -801,49 +876,146 @@
           </div>
         </div>
 
-        <!-- Supplier Toolbar with View Mode Toggle -->
-        <div class="supplier-toolbar">
-          <div class="toolbar-search-group">
-            <input type="text" id="catalog-search-input" class="input-text" placeholder="Search native catalog by SKU, title, category, or origin..." />
+        <!-- Supplier Workspace Sub-Navigation Tabs -->
+        <div class="supplier-subnav-pills" role="tablist" aria-label="Supplier Workspace Modules">
+          <button class="supplier-subnav-btn active" data-subview="catalog" id="subtab-catalog">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            Native Catalog & Customizations
+          </button>
+          <button class="supplier-subnav-btn" data-subview="fbt" id="subtab-fbt">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            Fulfilled by TradeOS (FBT / FBA)
+            <span class="badge-pill-cyan">5 Bonded Hubs</span>
+          </button>
+          <button class="supplier-subnav-btn" data-subview="pricewatch" id="subtab-pricewatch">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path><path d="M8 8h8v8"></path></svg>
+            Vendor Price Watch & Supplies Match
+            <span class="badge-pill-emerald">Real-Time</span>
+          </button>
+          <button class="supplier-subnav-btn" data-subview="hunt" id="subtab-hunt">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Product Hunt & Reseller Hub
+            <span class="badge-pill-amber">Dropship / OEM</span>
+          </button>
+        </div>
+
+        <!-- ==================================================================
+             SUB-PANE 1: NATIVE CATALOG & CUSTOMIZATIONS
+             ================================================================== -->
+        <div class="supplier-tab-pane active" id="pane-supplier-catalog">
+          <!-- Supplier Toolbar with View Mode Toggle -->
+          <div class="supplier-toolbar">
+            <div class="toolbar-search-group">
+              <input type="text" id="catalog-search-input" class="input-text" placeholder="Search native catalog by SKU, title, category, or origin..." />
+            </div>
+
+            <div class="view-mode-toggle">
+              <button class="view-toggle-btn active" id="btn-view-grid" aria-label="Icon Card Grid View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                Icon Grid View
+              </button>
+              <button class="view-toggle-btn" id="btn-view-table" aria-label="Detailed List Table View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                Data List View
+              </button>
+            </div>
           </div>
 
-          <div class="view-mode-toggle">
-            <button class="view-toggle-btn active" id="btn-view-grid" aria-label="Icon Card Grid View">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              Icon Grid View
-            </button>
-            <button class="view-toggle-btn" id="btn-view-table" aria-label="Detailed List Table View">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-              Data List View
-            </button>
+          <!-- Products Container 1: Card Grid View -->
+          <div class="product-cards-grid" id="products-cards-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+
+          <!-- Products Container 2: Table List View -->
+          <div class="product-table-wrapper" id="products-table-wrapper">
+            <table class="product-table" aria-label="Synchronized Product Catalog Table">
+              <thead>
+                <tr>
+                  <th scope="col">Media</th>
+                  <th scope="col">Product & SKU</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Inventory Level</th>
+                  <th scope="col">B2B Price</th>
+                  <th scope="col">MOQ</th>
+                  <th scope="col">Origin & Lead Time</th>
+                  <th scope="col">AfCFTA Rule</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body">
+                <!-- Rendered dynamically by app.js -->
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Products Container 1: Card Grid View -->
-        <div class="product-cards-grid" id="products-cards-grid">
-          <!-- Rendered dynamically by app.js -->
+        <!-- ==================================================================
+             SUB-PANE 2: FULFILLED BY TRADEOS (FBT / FBA) BONDED WAREHOUSES
+             ================================================================== -->
+        <div class="supplier-tab-pane" id="pane-supplier-fbt" style="display:none;">
+          <div class="fbt-header-banner">
+            <div>
+              <div class="fbt-eyebrow">BONDED LOGISTICS INFRASTRUCTURE • PAN-AFRICA</div>
+              <h3 style="font-size:18px; color:#ffffff; margin:4px 0;">Fulfilled by TradeOS (FBT) Bonded Warehouse Network</h3>
+              <p style="font-size:12px; color:var(--text-secondary); margin:0;">
+                Store goods in sovereign bonded economic zones across Africa. Zero import duty until dispatched into domestic consumption. Automated picking, packing, and cross-border customs single-window clearance.
+              </p>
+            </div>
+            <button class="btn-primary" id="btn-open-replenish-modal">
+              + Inbound Dispatch to FBT Warehouse
+            </button>
+          </div>
+
+          <div class="fbt-warehouses-grid" id="fbt-warehouses-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
         </div>
 
-        <!-- Products Container 2: Table List View -->
-        <div class="product-table-wrapper" id="products-table-wrapper">
-          <table class="product-table" aria-label="Synchronized Product Catalog Table">
-            <thead>
-              <tr>
-                <th scope="col">Media</th>
-                <th scope="col">Product & SKU</th>
-                <th scope="col">Category</th>
-                <th scope="col">Inventory Level</th>
-                <th scope="col">B2B Price</th>
-                <th scope="col">MOQ</th>
-                <th scope="col">Origin & Lead Time</th>
-                <th scope="col">AfCFTA Rule</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="products-table-body">
-              <!-- Rendered dynamically by app.js -->
-            </tbody>
-          </table>
+        <!-- ==================================================================
+             SUB-PANE 3: VENDOR PRICING WATCH & SUPPLIES PRODUCT MATCH
+             ================================================================== -->
+        <div class="supplier-tab-pane" id="pane-supplier-pricewatch" style="display:none;">
+          <div class="pricewatch-header-banner">
+            <div>
+              <div class="pricewatch-eyebrow">COMPETITIVE PRICING RADAR • AFRICAN VS ASIA/INDIA CORRIDORS</div>
+              <h3 style="font-size:18px; color:#ffffff; margin:4px 0;">Vendor Pricing Watch & Landed Cost Intelligence</h3>
+              <p style="font-size:12px; color:var(--text-secondary); margin:0;">
+                Compare African domestic wholesale prices against landed costs from Shenzhen, Ningbo, and Gujarat. Highlighting AfCFTA 0% tariff savings, 35-day shipping lead time advantage, and PAPSS currency stability.
+              </p>
+            </div>
+            <div class="pricewatch-summary-pill">
+              <span class="pulsing-dot"></span>
+              <span>AfCFTA Margin Advantage: <strong>+18.4% Average</strong></span>
+            </div>
+          </div>
+
+          <div class="pricewatch-table-wrapper" id="pricewatch-table-wrapper">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             SUB-PANE 4: PRODUCT HUNT & RESELLER HUB (ALIEXPRESS / SHOPIFY DROPSHIP)
+             ================================================================== -->
+        <div class="supplier-tab-pane" id="pane-supplier-hunt" style="display:none;">
+          <div class="hunt-header-banner">
+            <div>
+              <div class="hunt-eyebrow">DISCOVERY & RESELLER SOURCING • DROPSHIP & PRIVATE LABEL</div>
+              <h3 style="font-size:18px; color:#ffffff; margin:4px 0;">Product Hunt Hub for Resellers & Dropshippers</h3>
+              <p style="font-size:12px; color:var(--text-secondary); margin:0;">
+                High-demand African manufactured products ready for 1-click export into Shopify, WooCommerce, or regional reseller distribution channels. Sample ordering and OEM custom white-label packaging available.
+              </p>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn-secondary" id="btn-hunt-export-all">
+                Export All for Shopify / CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="hunt-products-grid" id="hunt-products-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
         </div>
 
         <!-- Live Platform Telemetry & Catalog Event Console -->
@@ -955,6 +1127,51 @@
             </div>
             <div class="telematics-value" id="telem-seal-status" style="font-size:12px; color:#34d399;">INTACT • SECURED</div>
             <div class="telematics-sub" id="telem-seal-id">#E-SEAL-NGGH-9982</div>
+          </div>
+        </div>
+
+        <!-- Global Multi-Modal Telematics Radar (Maritime AIS, Air Cargo & Uber Haulage) -->
+        <div class="multimodal-radar-section">
+          <div class="radar-hud-header">
+            <div class="radar-title-group">
+              <span class="pulsing-dot"></span>
+              <h3 style="font-size:16px; font-weight:700; color:#ffffff; margin:0;">GLOBAL MULTI-MODAL RADAR • AIS MARITIME, AIR FREIGHT & ROAD HAULAGE</h3>
+              <span class="radar-badge-active">MILITARY / NASA GRADE AIS & ADS-B TELEMETRY</span>
+            </div>
+
+            <!-- Fleet Layer Filter Controls -->
+            <div class="radar-layer-toggles" role="tablist" aria-label="Fleet Tracking Layers">
+              <button class="layer-pill-btn active" data-fleet-filter="all" id="btn-fleet-all">
+                All Telematics (9)
+              </button>
+              <button class="layer-pill-btn" data-fleet-filter="maritime" id="btn-fleet-maritime">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                Maritime AIS (Maersk, MSC, CMA CGM)
+              </button>
+              <button class="layer-pill-btn" data-fleet-filter="air" id="btn-fleet-air">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"></path><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                Air Cargo (Ethiopian, KQ, Emirates)
+              </button>
+              <button class="layer-pill-btn" data-fleet-filter="road" id="btn-fleet-road">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                Uber-Style Road Haulage Fleet
+              </button>
+            </div>
+          </div>
+
+          <!-- Radar Canvas Interactive Screen -->
+          <div class="radar-canvas-container">
+            <canvas id="global-radar-canvas" aria-label="Interactive Global Cargo Telematics Radar"></canvas>
+            
+            <!-- Floating Telematics Inspector HUD Card -->
+            <div class="radar-inspector-card" id="radar-inspector-card">
+              <!-- Dynamically populated by app.js on vehicle select/hover -->
+            </div>
+          </div>
+
+          <!-- Live Uber-Style Haulage Fleet Dispatch Panel -->
+          <div class="uber-haulage-panel" id="uber-haulage-panel">
+            <!-- Dynamically populated with road haulage vehicle cards -->
           </div>
         </div>
 
@@ -1463,13 +1680,80 @@
     </div>
   </div>
 
+  <!-- Modal: Inbound Dispatch to Fulfilled by TradeOS (FBT) Bonded Warehouse -->
+  <div class="modal-overlay" id="modal-replenish-fbt" role="dialog" aria-modal="true" aria-labelledby="modal-fbt-title">
+    <div class="modal-card" style="max-width:580px;">
+      <div class="modal-header">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:var(--accent-cyan); text-transform:uppercase;">BONDED FULFILLMENT NETWORK</span>
+          <h3 id="modal-fbt-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Inbound Dispatch to FBT Bonded Warehouse</h3>
+        </div>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form id="form-replenish-fbt">
+        <div class="input-group" style="margin-bottom:var(--sp-3);">
+          <label class="input-label" for="fbt-target-wh">Target Bonded Economic Zone Hub</label>
+          <select id="fbt-target-wh" class="select-custom" required>
+            <option value="fbt-los-01">Lagos Free Zone Mega Hub (LFZ, Nigeria) — 45,000 m²</option>
+            <option value="fbt-tma-02">Tema Free Zone Logistics Enclave (MPS, Ghana) — 28,000 m²</option>
+            <option value="fbt-mba-03">Mombasa Dongo Kundu SEZ (Kenya) — 35,000 m²</option>
+            <option value="fbt-drb-04">Dube TradePort Special Economic Zone (Durban, ZA) — 50,000 m²</option>
+            <option value="fbt-tng-05">Tanger Med Logistics Hub (Morocco) — 60,000 m²</option>
+          </select>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-3); margin-bottom:var(--sp-3);">
+          <div class="input-group">
+            <label class="input-label" for="fbt-sku-select">Consignment SKU</label>
+            <select id="fbt-sku-select" class="select-custom" required>
+              <option value="SOL-BRK-AL6063">SOL-BRK-AL6063 • Solar Mounting Brackets</option>
+              <option value="INV-48V-5KW">INV-48V-5KW • Aura 5kW Hybrid Inverter</option>
+              <option value="ALU-RAIL-4400">ALU-RAIL-4400 • Anodized Mounting Rails</option>
+              <option value="LITH-BAT-100AH">LITH-BAT-100AH • LiFePO4 Energy Module</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="fbt-units">Units to Dispatch</label>
+            <input type="number" id="fbt-units" class="input-text" value="1000" min="50" step="50" required />
+          </div>
+        </div>
+
+        <div style="background:rgba(56,189,248,0.06); border:1px solid rgba(56,189,248,0.2); border-radius:var(--radius-md); padding:12px; margin-bottom:var(--sp-4); font-size:12px; color:var(--text-secondary);">
+          <div style="font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">AfCFTA Bonded Inbound Guarantee:</div>
+          Zero import duties apply while goods remain in TradeOS Bonded facilities. Customs clearance is triggered automatically upon domestic buyer purchase order release.
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:var(--sp-3);">
+          <button type="button" class="btn-secondary modal-backdrop-close">Cancel</button>
+          <button type="submit" class="btn-primary">Generate Bonded Inbound Consignment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Reseller 1-Click Export & Sample Order -->
+  <div class="modal-overlay" id="modal-reseller-action" role="dialog" aria-modal="true" aria-labelledby="modal-reseller-title">
+    <div class="modal-card" style="max-width:620px;">
+      <div class="modal-header">
+        <div>
+          <span style="font-size:11px; font-weight:700; color:var(--accent-amber); text-transform:uppercase;">RESELLER SOURCING ACTIONS</span>
+          <h3 id="modal-reseller-title" style="font-size:var(--text-xl); color:#ffffff; margin-top:2px;">Reseller Export & White-Label OEM</h3>
+        </div>
+        <button class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <div id="reseller-modal-body" style="font-size:13px; color:var(--text-secondary);">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Floating Container -->
   <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Application Scripts -->
-  <script src="js/store.js?v=2.5.0"></script>
-  <script src="js/landed-cost.js?v=2.5.0"></script>
-  <script src="js/motion.js?v=2.5.0"></script>
-  <script src="js/app.js?v=2.5.0"></script>
+  <script src="js/store.js?v=2.6.0"></script>
+  <script src="js/landed-cost.js?v=2.6.0"></script>
+  <script src="js/motion.js?v=2.6.0"></script>
+  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>

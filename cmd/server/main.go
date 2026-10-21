@@ -431,6 +431,50 @@ func handleGraphQL(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
+// handleFBTWarehouses returns bonded logistics network hubs
+func handleFBTWarehouses(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`[
+		{"id":"fbt-los-01","name":"Lagos Free Zone Mega Hub (LFZ)","city":"Lagos","country":"Nigeria","flag":"🇳🇬","sqmCapacity":45000,"utilizationPct":68,"activeSKUs":1420,"status":"OPERATIONAL • FAST-TRACK CLEARANCE"},
+		{"id":"fbt-tma-02","name":"Tema Free Zone Logistics Enclave","city":"Tema","country":"Ghana","flag":"🇬🇭","sqmCapacity":28000,"utilizationPct":54,"activeSKUs":890,"status":"OPERATIONAL • FAST-TRACK CLEARANCE"},
+		{"id":"fbt-mba-03","name":"Mombasa Dongo Kundu SEZ Hub","city":"Mombasa","country":"Kenya","flag":"🇰🇪","sqmCapacity":35000,"utilizationPct":72,"activeSKUs":1140,"status":"OPERATIONAL • FAST-TRACK CLEARANCE"},
+		{"id":"fbt-drb-04","name":"Dube TradePort Special Economic Zone","city":"Durban","country":"South Africa","flag":"🇿🇦","sqmCapacity":50000,"utilizationPct":81,"activeSKUs":2300,"status":"OPERATIONAL • FAST-TRACK CLEARANCE"},
+		{"id":"fbt-tng-05","name":"Tanger Med Logistics Hub","city":"Tangier","country":"Morocco","flag":"🇲🇦","sqmCapacity":60000,"utilizationPct":76,"activeSKUs":3100,"status":"OPERATIONAL • FAST-TRACK CLEARANCE"}
+	]`))
+}
+
+// handlePriceWatch returns comparative corridor landed cost analytics
+func handlePriceWatch(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`[
+		{"id":"pw-01","productTitle":"AL6063-T6 Extruded Solar Mounting Clamps","africanDomesticLandedUSD":3.68,"asiaChinaLandedUSD":4.82,"indiaLandedUSD":4.65,"afcftaDutyExemption":"0% Duty (Saves 20%)","tradeosMarginAdvantage":"+23.6% Margin Advantage"},
+		{"id":"pw-02","productTitle":"Aura 50kW Smart Industrial Hybrid Inverter","africanDomesticLandedUSD":3450.00,"asiaChinaLandedUSD":4120.00,"indiaLandedUSD":3980.00,"afcftaDutyExemption":"0% Duty (Saves 15%)","tradeosMarginAdvantage":"+16.2% Margin Advantage"},
+		{"id":"pw-03","productTitle":"Organic White Sesame Seeds (Metric Ton)","africanDomesticLandedUSD":1850.00,"asiaChinaLandedUSD":2340.00,"indiaLandedUSD":2210.00,"afcftaDutyExemption":"0% Preferential Duty","tradeosMarginAdvantage":"+20.9% Margin Advantage"},
+		{"id":"pw-04","productTitle":"100kWh High-Voltage LiFePO4 Storage Rack","africanDomesticLandedUSD":18200.00,"asiaChinaLandedUSD":21900.00,"indiaLandedUSD":20800.00,"afcftaDutyExemption":"0% Duty (Saves 10%)","tradeosMarginAdvantage":"+16.8% Margin Advantage"}
+	]`))
+}
+
+// handleResellerProducts returns curated dropship & reseller products
+func handleResellerProducts(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`[
+		{"id":"hunt-01","title":"TradeOS Sovereign Solar Mounting Clamps (500-Pack)","wholesalePriceUSD":3.68,"suggestedRetailUSD":6.50,"marginPct":"43.4%","moq":50,"whiteLabelOEM":true},
+		{"id":"hunt-02","title":"Aura Grid-Sense IoT Energy Meter & Bridge","wholesalePriceUSD":245.00,"suggestedRetailUSD":420.00,"marginPct":"41.6%","moq":5,"whiteLabelOEM":true},
+		{"id":"hunt-03","title":"Anodized Aluminum Ground-Mount Rails (4.4m)","wholesalePriceUSD":22.50,"suggestedRetailUSD":38.00,"marginPct":"40.8%","moq":20,"whiteLabelOEM":false},
+		{"id":"hunt-04","title":"Solid-State DC Surge Protection Combiner Box","wholesalePriceUSD":108.00,"suggestedRetailUSD":185.00,"marginPct":"41.6%","moq":10,"whiteLabelOEM":true}
+	]`))
+}
+
+// handleTelematicsFleet returns multi-modal fleet AIS/ADS-B/Road tracking
+func handleTelematicsFleet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`[
+		{"id":"ais-01","type":"maritime","carrier":"MSC","vesselName":"MSC West Africa Express","lat":5.250,"lon":1.100,"speedKnots":15.2,"eta":"Oct 22, 14:00 GMT"},
+		{"id":"air-01","type":"air","carrier":"Ethiopian Airlines Cargo","flightNumber":"ET392 (Boeing 777-200F)","lat":9.005,"lon":38.746,"speedKnots":485,"eta":"Oct 22, 16:15 WAT"},
+		{"id":"trk-01","type":"road","fleetName":"TradeOS Corridor Express","truckPlate":"LND-482-XA","driverName":"Babatunde Adeleke","speedKmH":64,"cargoTempC":24.2,"sealStatus":"CRYPTOGRAPHIC E-SEAL INTACT","eta":"Oct 22, 18:30 GMT"}
+	]`))
+}
+
 func main() {
 	portStr := os.Getenv("PORT")
 	if portStr == "" {
@@ -453,6 +497,10 @@ func main() {
 	mux.HandleFunc("/api/v1/health", handleHealth)
 	mux.HandleFunc("/api/v1/products", handleProducts)
 	mux.HandleFunc("/api/v1/landed-cost", handleLandedCost)
+	mux.HandleFunc("/api/v1/fbt/warehouses", handleFBTWarehouses)
+	mux.HandleFunc("/api/v1/market-radar/pricing-watch", handlePriceWatch)
+	mux.HandleFunc("/api/v1/reseller/products", handleResellerProducts)
+	mux.HandleFunc("/api/v1/telematics/fleet", handleTelematicsFleet)
 	mux.HandleFunc("/api/v1/webhooks/shopify", handleShopifyWebhook)
 	mux.HandleFunc("/graphql", handleGraphQL)
 

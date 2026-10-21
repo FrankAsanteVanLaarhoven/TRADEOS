@@ -19,24 +19,146 @@
       this.store = window.TradeOSStore;
       this.calculator = window.TradeOSLandedCostEngine;
       this.visualizer = null;
+      this.radar = null;
     }
 
     init() {
+      this.setupWorldClocks();
+      this.setupLocalizationAndCurrency();
       this.setupNavigation();
       this.setupHardwareVisualizer();
       this.setupCalculator();
       this.setupControlRoom();
       this.setupShopifyAdmin();
+      this.setupSupplierHubSubtabs();
       this.setupOperations();
+      this.setupGlobalMultiModalRadar();
       this.setupApiExplorer();
       this.setupModals();
       this.setupStoreSubscriptions();
 
-      // Render initial view
+      // Render initial view & datasets
       this.switchView('showcase');
       this.renderProducts();
+      this.renderFBTWarehouses();
+      this.renderVendorPriceWatch();
+      this.renderResellerHuntHub();
       this.renderWebhookLogs();
       this.updateCalculatorUI();
+    }
+
+    /* ------------------------------------------------------------------------
+       World Trading Clocks (Live Ticking 7 Global Hubs)
+       ------------------------------------------------------------------------ */
+    setupWorldClocks() {
+      const hubs = [
+        { id: 'clock-lagos', tz: 'Africa/Lagos' },
+        { id: 'clock-accra', tz: 'Africa/Accra' },
+        { id: 'clock-nairobi', tz: 'Africa/Nairobi' },
+        { id: 'clock-jnb', tz: 'Africa/Johannesburg' },
+        { id: 'clock-london', tz: 'Europe/London' },
+        { id: 'clock-dubai', tz: 'Asia/Dubai' },
+        { id: 'clock-shanghai', tz: 'Asia/Shanghai' }
+      ];
+
+      const tick = () => {
+        const now = new Date();
+        hubs.forEach(h => {
+          const el = document.getElementById(h.id);
+          if (el) {
+            try {
+              const timeStr = new Intl.DateTimeFormat('en-GB', {
+                timeZone: h.tz,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+              }).format(now);
+              el.textContent = timeStr;
+            } catch (e) {
+              el.textContent = now.toTimeString().split(' ')[0];
+            }
+          }
+        });
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    /* ------------------------------------------------------------------------
+       30-Language Sovereign Localization & Multi-Currency Converter
+       ------------------------------------------------------------------------ */
+    setupLocalizationAndCurrency() {
+      // Populate 30 languages in #lang-select
+      const langSelect = document.getElementById('lang-select');
+      if (langSelect && this.store.languages) {
+        langSelect.innerHTML = Object.entries(this.store.languages).map(([code, meta]) => `
+          <option value="${code}" ${code === this.store.currentLanguage ? 'selected' : ''}>
+            ${meta.flag} ${meta.nativeName} (${meta.name})
+          </option>
+        `).join('');
+
+        langSelect.addEventListener('change', (e) => {
+          this.store.setLanguage(e.target.value);
+          this.applyTranslations();
+          this.showToast(`Switched interface language to ${this.store.languages[e.target.value].name}`, 'info');
+        });
+      }
+
+      // Currency Select
+      const currSelect = document.getElementById('currency-select');
+      if (currSelect) {
+        currSelect.value = this.store.currentCurrency;
+        currSelect.addEventListener('change', (e) => {
+          this.store.setCurrency(e.target.value);
+          this.renderProducts();
+          this.renderResellerHuntHub();
+          this.renderVendorPriceWatch();
+          this.updateCalculatorUI();
+          this.showToast(`Reporting currency set to ${e.target.value} (${this.store.currencies[e.target.value].symbol})`, 'info');
+        });
+      }
+    }
+
+    applyTranslations() {
+      const t = (k) => this.store.t(k);
+      
+      const heroMain = document.getElementById('hero-main-title');
+      if (heroMain) heroMain.textContent = t('wholesale_sourcing');
+
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      if (heroSubtitle) heroSubtitle.textContent = t('hero_subtitle');
+
+      const btnWholesale = document.getElementById('nav-btn-showcase');
+      if (btnWholesale) {
+        const full = btnWholesale.querySelector('.tab-label-full');
+        if (full) full.textContent = t('wholesale_sourcing');
+      }
+
+      const btnProcurement = document.getElementById('nav-btn-control-room');
+      if (btnProcurement) {
+        const full = btnProcurement.querySelector('.tab-label-full');
+        if (full) full.textContent = t('buyer_procurement');
+      }
+
+      const btnSupplier = document.getElementById('nav-btn-shopify-admin');
+      if (btnSupplier) {
+        const full = btnSupplier.querySelector('.tab-label-full');
+        if (full) full.textContent = t('supplier_hub');
+      }
+
+      const btnCorridors = document.getElementById('nav-btn-operations');
+      if (btnCorridors) {
+        const full = btnCorridors.querySelector('.tab-label-full');
+        if (full) full.textContent = t('corridors_radar');
+      }
+
+      const btnApi = document.getElementById('nav-btn-api');
+      if (btnApi) {
+        const full = btnApi.querySelector('.tab-label-full');
+        if (full) full.textContent = t('developer_api');
+      }
     }
 
     /* ------------------------------------------------------------------------
@@ -82,9 +204,22 @@
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Trigger resize on visualizer if showcase is open
+      // Trigger resize on visualizers when tabs become visible
       if (viewId === 'showcase' && this.visualizer) {
         setTimeout(() => this.visualizer.resize(), 100);
+      }
+      if (viewId === 'operations') {
+        if (this.radar) {
+          setTimeout(() => this.radar.resize(), 100);
+        }
+        this.renderRadarInspectorCard();
+        this.renderUberHaulageFleet();
+      }
+      if (viewId === 'shopify-admin') {
+        this.renderNativeCatalog();
+        this.renderFBTWarehouses();
+        this.renderVendorPriceWatch();
+        this.renderResellerHuntHub();
       }
     }
 
@@ -449,11 +584,11 @@ IND-LITH-SPOD,Spodumene Lithium Concentrate 6% Li2O (Dry Ton),Industrial Materia
                 <div class="product-pricing-strip">
                   <div>
                     <span style="font-size:10px; color:var(--text-tertiary); display:block;">B2B WHOLESALE</span>
-                    <span class="b2b-price-badge">$${p.b2bPrice.toFixed(2)}</span>
+                    <span class="b2b-price-badge">${this.store.formatPrice(p.b2bPrice)}</span>
                   </div>
                   <div style="text-align:right;">
                     <span style="font-size:10px; color:var(--text-tertiary); display:block;">BASE MSRP</span>
-                    <span style="font-size:12px; color:var(--text-secondary); text-decoration:line-through;">$${p.basePrice.toFixed(2)}</span>
+                    <span style="font-size:12px; color:var(--text-secondary); text-decoration:line-through;">${this.store.formatPrice(p.basePrice)}</span>
                   </div>
                 </div>
               </div>
@@ -481,7 +616,7 @@ IND-LITH-SPOD,Spodumene Lithium Concentrate 6% Li2O (Dry Ton),Industrial Materia
                 <button class="stepper-btn" onclick="window.TradeOS.adjustStock('${p.id}', 10)">+</button>
               </div>
             </td>
-            <td style="font-weight:700; color:var(--accent-cyan);">$${p.b2bPrice.toFixed(2)}</td>
+            <td style="font-weight:700; color:var(--accent-cyan);">${this.store.formatPrice(p.b2bPrice)}</td>
             <td>${p.moq} units</td>
             <td>${p.originCountry || 'Africa'} (${p.leadTimeDays}d)</td>
             <td>${p.afcftaCertified ? '<span style="color:var(--accent-emerald); font-weight:700;">✓ Certified</span>' : '<span style="color:var(--text-tertiary);">Standard</span>'}</td>
@@ -509,6 +644,509 @@ IND-LITH-SPOD,Spodumene Lithium Concentrate 6% Li2O (Dry Ton),Industrial Materia
         this.renderProducts();
         this.showToast(`Product deleted successfully`, 'warning');
       }
+    }
+
+    /* ------------------------------------------------------------------------
+       Supplier Workspace Sub-Tabs & Modules (Catalog, FBT, Price Watch, Hunt)
+       ------------------------------------------------------------------------ */
+    setupSupplierHubSubtabs() {
+      const subtabs = document.querySelectorAll('.supplier-subnav-btn');
+      subtabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const subview = btn.dataset.subview;
+          this.switchSupplierSubView(subview);
+        });
+      });
+
+      // FBT Inbound Replenishment Modal Trigger
+      const btnOpenReplenish = document.getElementById('btn-open-replenish-modal');
+      if (btnOpenReplenish) {
+        btnOpenReplenish.addEventListener('click', () => {
+          this.openModal('modal-replenish-fbt');
+        });
+      }
+
+      // FBT Replenish Form Submit
+      const formFBT = document.getElementById('form-replenish-fbt');
+      if (formFBT) {
+        formFBT.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const whId = document.getElementById('fbt-target-wh').value;
+          const sku = document.getElementById('fbt-sku-select').value;
+          const units = parseInt(document.getElementById('fbt-units').value) || 1000;
+
+          this.store.replenishWarehouse(whId, sku, units);
+          this.closeAllModals();
+          this.renderFBTWarehouses();
+          this.showToast(`Inbound consignment of ${units.toLocaleString()} units dispatched to bonded hub!`, 'success');
+        });
+      }
+
+      // Hunt Export All Button
+      const btnExportAllHunt = document.getElementById('btn-hunt-export-all');
+      if (btnExportAllHunt) {
+        btnExportAllHunt.addEventListener('click', () => {
+          const headers = "id,title,category,wholesalePriceUSD,suggestedRetailUSD,marginPct,whiteLabelOEM,moq\n";
+          const rows = this.store.resellerHuntItems.map(item =>
+            `"${item.id}","${item.title.replace(/"/g, '""')}","${item.category}",${item.wholesalePriceUSD},${item.suggestedRetailUSD},"${item.marginPct}","${item.whiteLabelOEM}",${item.moq}`
+          ).join("\n");
+          
+          const blob = new Blob([headers + rows], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.setAttribute("href", url);
+          link.setAttribute("download", `tradeos_reseller_hunt_${new Date().toISOString().split('T')[0]}.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          this.showToast('Exported curated reseller catalog for Shopify / dropship import', 'success');
+        });
+      }
+    }
+
+    switchSupplierSubView(subview) {
+      this.store.setSupplierSubView(subview);
+
+      document.querySelectorAll('.supplier-subnav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.subview === subview);
+      });
+
+      document.querySelectorAll('.supplier-tab-pane').forEach(pane => {
+        pane.style.display = (pane.id === `pane-supplier-${subview}`) ? 'block' : 'none';
+      });
+
+      if (subview === 'fbt') this.renderFBTWarehouses();
+      if (subview === 'pricewatch') this.renderVendorPriceWatch();
+      if (subview === 'hunt') this.renderResellerHuntHub();
+    }
+
+    renderFBTWarehouses() {
+      const container = document.getElementById('fbt-warehouses-grid');
+      if (!container || !this.store.fbtWarehouses) return;
+
+      const flagMap = { "Nigeria": "🇳🇬", "Ghana": "🇬🇭", "Kenya": "🇰🇪", "South Africa": "🇿🇦", "Morocco": "🇲🇦" };
+
+      container.innerHTML = this.store.fbtWarehouses.map(wh => {
+        const flag = wh.flag || flagMap[wh.country] || "🌍";
+        const capacityVal = (wh.capacitySqFt || wh.sqmCapacity || 100000).toLocaleString();
+        const utilVal = wh.utilizedPct || wh.utilizationPct || 65;
+        const statusText = wh.status || "OPERATIONAL • FAST-TRACK CLEARANCE";
+
+        return `
+          <div class="fbt-card" id="fbt-card-${wh.id}">
+            <div class="fbt-card-header">
+              <div>
+                <span class="fbt-city-flag">${flag}</span>
+                <h4 style="font-size:14px; color:#ffffff; margin:4px 0 2px;">${wh.name}</h4>
+                <p style="font-size:11px; color:var(--text-tertiary);">${wh.city}, ${wh.country} • ${wh.code || wh.customsZone || 'Bonded Zone'}</p>
+              </div>
+              <span class="badge-pill-emerald">${statusText}</span>
+            </div>
+
+            <div style="font-size:11px; color:var(--text-secondary); line-height:1.4;">
+              ${wh.bondedStatus || wh.description || 'Sovereign bonded African fulfillment infrastructure.'}
+            </div>
+
+            <div>
+              <div class="fbt-stat-row">
+                <span>Bonded Floor Space</span>
+                <span class="fbt-stat-val">${capacityVal} sq ft</span>
+              </div>
+              <div class="fbt-stat-row">
+                <span>Active SKUs Stored</span>
+                <span class="fbt-stat-val">${wh.activeSKUs || 100}</span>
+              </div>
+              <div class="fbt-stat-row">
+                <span>Feeder Port Link</span>
+                <span class="fbt-stat-val" style="color:var(--accent-emerald);">${wh.feederPort || 'Single Window Integrated'}</span>
+              </div>
+            </div>
+
+            <div class="fbt-capacity-wrap">
+              <div class="fbt-capacity-label">
+                <span>Warehouse Utilization</span>
+                <span style="font-weight:700; color:var(--accent-cyan); font-family:var(--font-mono);">${utilVal}%</span>
+              </div>
+              <div class="fbt-capacity-bar">
+                <div class="fbt-capacity-fill" style="width:${utilVal}%;"></div>
+              </div>
+            </div>
+
+            <div style="margin-top:auto; padding-top:var(--sp-2);">
+              <button class="btn-secondary" style="width:100%; font-size:11px;" onclick="window.TradeOS.openReplenishWithHub('${wh.id}')">
+                Dispatch Inventory to ${wh.city}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    openReplenishWithHub(whId) {
+      const select = document.getElementById('fbt-target-wh');
+      if (select) select.value = whId;
+      this.openModal('modal-replenish-fbt');
+    }
+
+    renderVendorPriceWatch() {
+      const container = document.getElementById('pricewatch-table-wrapper');
+      if (!container || !this.store.vendorPriceWatch) return;
+
+      container.innerHTML = `
+        <table class="pricewatch-table" aria-label="Vendor Pricing Watch Matrix">
+          <thead>
+            <tr>
+              <th scope="col">Product & Category</th>
+              <th scope="col">TradeOS African Landed</th>
+              <th scope="col">China Landed (Shenzhen)</th>
+              <th scope="col">India Landed (Gujarat)</th>
+              <th scope="col">AfCFTA Tariff Saving</th>
+              <th scope="col">Shipping Lead Time</th>
+              <th scope="col">TradeOS Margin Advantage</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${this.store.vendorPriceWatch.map(row => {
+              const afLanded = row.africanVendor ? row.africanVendor.landedUSD : (row.africanDomesticLandedUSD || 0);
+              const cnLanded = row.asiaVendor ? row.asiaVendor.landedUSD : (row.asiaChinaLandedUSD || 0);
+              const inLanded = row.indianVendor ? row.indianVendor.landedUSD : (row.indiaLandedUSD || 0);
+              const afLead = row.africanVendor ? row.africanVendor.leadDays : (row.leadTimeAfricanDays || 14);
+              const cnLead = row.asiaVendor ? row.asiaVendor.leadDays : (row.leadTimeAsiaDays || 45);
+              const advPct = row.advantagePct ? `${row.advantagePct}%` : (row.tradeosMarginAdvantage || '18%');
+              const afVendorName = row.africanVendor?.name || "African Certified Producer";
+
+              return `
+                <tr>
+                  <td>
+                    <strong style="color:#ffffff;">${row.productTitle}</strong><br>
+                    <span style="font-size:11px; color:var(--text-tertiary);">${afVendorName}</span>
+                  </td>
+                  <td style="color:var(--accent-cyan); font-weight:700; font-family:var(--font-mono);">
+                    ${this.store.formatPrice(afLanded)}
+                  </td>
+                  <td style="color:var(--text-muted); font-family:var(--font-mono);">
+                    ${this.store.formatPrice(cnLanded)}
+                  </td>
+                  <td style="color:var(--text-muted); font-family:var(--font-mono);">
+                    ${this.store.formatPrice(inLanded)}
+                  </td>
+                  <td style="color:var(--accent-emerald); font-weight:700;">
+                    0% AfCFTA Duty Exempt
+                  </td>
+                  <td>
+                    <span style="color:var(--accent-emerald); font-weight:600;">${afLead}d African</span> vs <span style="color:var(--text-tertiary);">${cnLead}d Asia</span>
+                  </td>
+                  <td>
+                    <span class="advantage-pill">+${advPct} Margin</span>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    renderResellerHuntHub() {
+      const container = document.getElementById('hunt-products-grid');
+      if (!container || !this.store.resellerHuntItems) return;
+
+      container.innerHTML = this.store.resellerHuntItems.map(item => {
+        const wholesaleUSD = item.b2bWholesaleUSD ?? item.wholesalePriceUSD ?? 0;
+        const retailUSD = item.suggestedRetailUSD ?? 0;
+        const marginStr = item.estimatedMarginPct ? `${item.estimatedMarginPct}%` : (item.marginPct || '65%');
+        const isOEM = item.whiteLabelAvailable || item.whiteLabelOEM;
+        const isDropship = item.dropshipReady;
+
+        return `
+          <div class="hunt-card" id="hunt-card-${item.id}">
+            <div class="hunt-card-thumb">
+              <img src="${item.image}" alt="${item.title}" loading="lazy" />
+              <div class="hunt-badge-overlay">
+                <span class="hunt-margin-pill">${marginStr} Margin</span>
+                ${isOEM ? '<span class="hunt-oem-pill">White-Label OEM</span>' : ''}
+              </div>
+            </div>
+            <div class="hunt-card-content">
+              <div>
+                <span style="font-size:10px; color:var(--accent-cyan); font-weight:700; text-transform:uppercase;">${item.category}</span>
+                <h4 style="font-size:14px; color:#ffffff; margin:4px 0 6px;">${item.title}</h4>
+                <p style="font-size:11px; color:var(--text-secondary); line-height:1.4;">${item.supplier} • Origin: ${item.origin}</p>
+                ${item.verifiedCert ? `<p style="font-size:10px; color:var(--accent-emerald); margin-top:2px;">${item.verifiedCert}</p>` : ''}
+              </div>
+
+              <div class="hunt-pricing-row">
+                <div>
+                  <span style="font-size:10px; color:var(--text-tertiary); display:block;">WHOLESALE B2B</span>
+                  <span style="font-size:14px; font-weight:800; color:var(--accent-cyan);">${this.store.formatPrice(wholesaleUSD)}</span>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-size:10px; color:var(--text-tertiary); display:block;">RESELLER MSRP</span>
+                  <span style="font-size:13px; font-weight:700; color:var(--accent-emerald);">${this.store.formatPrice(retailUSD)}</span>
+                </div>
+              </div>
+
+              <div class="hunt-meta-grid">
+                <span>MOQ: <strong>${item.moq} units</strong></span>
+                <span>Drop-Shipping: <strong style="color:${isDropship ? 'var(--accent-emerald)' : 'var(--text-tertiary)'};">${isDropship ? 'Instant Ready' : 'Bulk Only'}</strong></span>
+                <span>Samples: <strong style="color:var(--accent-cyan);">${item.samplesAvailable ? 'Available' : 'On Request'}</strong></span>
+                <span>AfCFTA Duty: <strong style="color:var(--accent-emerald);">0% Preferential</strong></span>
+              </div>
+
+              <div class="hunt-card-actions">
+                <button class="btn-primary" style="flex:1; font-size:11px;" onclick="window.TradeOS.exportItemForShopify('${item.id}')">
+                  1-Click Export to Shopify
+                </button>
+                <button class="btn-secondary" style="font-size:11px;" onclick="window.TradeOS.openResellerActionModal('${item.id}')">
+                  Sample / OEM
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    exportItemForShopify(itemId) {
+      const item = this.store.resellerHuntItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      const wholesale = item.b2bWholesaleUSD ?? item.wholesalePriceUSD ?? 0;
+      const retail = item.suggestedRetailUSD ?? 0;
+
+      const shopifyCSV = `Handle,Title,Body (HTML),Vendor,Standard Product Type,Custom Product Type,Tags,Published,Option1 Name,Option1 Value,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Variant Barcode,Image Src
+"${item.id}","${item.title.replace(/"/g, '""')}","<p>${(item.verifiedCert || item.title).replace(/"/g, '""')}</p>","TradeOS Sovereign Network","${item.category}","${item.category}","B2B, African Made, AfCFTA, High Margin",true,"Title","Default Title","SKU-${item.id}",1000,"shopify",500,"deny","manual",${retail},${(retail * 1.25).toFixed(2)},true,true,"","https://tradeos.africa/${item.image}"`;
+
+      const blob = new Blob([shopifyCSV], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `shopify_product_${item.id}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      this.store.logWebhook("tradeos/reseller.shopify_export", `Exported SKU ${item.id} to Shopify Product CSV`);
+      this.showToast(`Exported "${item.title}" in 1-Click Shopify format!`, 'success');
+    }
+
+    openResellerActionModal(itemId) {
+      const item = this.store.resellerHuntItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      const wholesale = item.b2bWholesaleUSD ?? item.wholesalePriceUSD ?? 0;
+      const retail = item.suggestedRetailUSD ?? 0;
+
+      const bodyEl = document.getElementById('reseller-modal-body');
+      if (bodyEl) {
+        bodyEl.innerHTML = `
+          <div style="background:rgba(15,23,42,0.6); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:14px; margin-bottom:14px;">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <img src="${item.image}" alt="${item.title}" style="width:60px; height:60px; object-fit:cover; border-radius:8px;" />
+              <div>
+                <h4 style="color:#ffffff; margin:0 0 4px;">${item.title}</h4>
+                <div style="color:var(--accent-cyan); font-weight:700;">Wholesale: ${this.store.formatPrice(wholesale)} • Retail MSRP: ${this.store.formatPrice(retail)}</div>
+                <div style="font-size:11px; color:var(--text-secondary); margin-top:2px;">Supplier: ${item.supplier} (${item.origin})</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-hairline); border-radius:8px; padding:12px;">
+              <div style="font-weight:700; color:#ffffff; font-size:12px; margin-bottom:4px;">1. Sample Evaluation Order</div>
+              <p style="font-size:11px; margin:0 0 8px; color:var(--text-secondary);">Direct express courier sample dispatch (3-5 days via Ethiopian Airlines / DHL) for quality validation before bulk ordering.</p>
+              <button class="btn-secondary" style="font-size:11px;" onclick="window.TradeOS.orderSample('${item.id}')">Request 1-Unit Sample (${this.store.formatPrice(wholesale * 1.5)})</button>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-hairline); border-radius:8px; padding:12px;">
+              <div style="font-weight:700; color:#ffffff; font-size:12px; margin-bottom:4px;">2. White-Label OEM Packaging & Branding</div>
+              <p style="font-size:11px; margin:0 0 8px; color:var(--text-secondary);">Custom silkscreen logo, branded carton packaging, and customized retail barcode labeling at factory origin.</p>
+              <button class="btn-primary" style="font-size:11px;" onclick="window.TradeOS.requestOEM('${item.id}')">Request Private Label Specification Quote</button>
+            </div>
+          </div>
+        `;
+      }
+
+      this.openModal('modal-reseller-action');
+    }
+
+    orderSample(itemId) {
+      this.closeAllModals();
+      this.store.logWebhook("tradeos/reseller.sample_requested", `Sample order placed for SKU ${itemId}`);
+      this.showToast('Sample order logged! Express courier invoice dispatched to email.', 'success');
+    }
+
+    requestOEM(itemId) {
+      this.closeAllModals();
+      this.store.logWebhook("tradeos/reseller.oem_rfq", `Private label OEM RFQ logged for SKU ${itemId}`);
+      this.showToast('OEM Private Label specification sent to manufacturing cooperative!', 'success');
+    }
+
+    /* ------------------------------------------------------------------------
+       Global Multi-Modal Radar (Maritime AIS, Air Cargo & Uber Haulage)
+       ------------------------------------------------------------------------ */
+    setupGlobalMultiModalRadar() {
+      if (document.getElementById('global-radar-canvas') && window.TradeOSGlobalMultiModalRadar) {
+        this.radar = new window.TradeOSGlobalMultiModalRadar('global-radar-canvas');
+      }
+
+      // Fleet Filter buttons
+      const filterBtns = document.querySelectorAll('[data-fleet-filter]');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.fleetFilter;
+          this.store.setFleetFilter(filter);
+          this.renderUberHaulageFleet();
+        });
+      });
+
+      this.renderRadarInspectorCard();
+      this.renderUberHaulageFleet();
+    }
+
+    renderRadarInspectorCard() {
+      const card = document.getElementById('radar-inspector-card');
+      if (!card || !this.store.multimodalFleet) return;
+
+      const selected = this.store.multimodalFleet.find(f => f.id === this.store.selectedFleetItemId) || this.store.multimodalFleet[0];
+      if (!selected) return;
+
+      let typeBadge = '';
+      let statsHtml = '';
+
+      if (selected.type === 'maritime') {
+        typeBadge = `<span class="inspector-type-pill inspector-type-maritime">Maritime AIS • Vessel</span>`;
+        statsHtml = `
+          <div class="inspector-stat-grid">
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">AIS Callsign</div>
+              <div class="inspector-stat-val">${selected.callsign}</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Speed & Draft</div>
+              <div class="inspector-stat-val">${selected.speedKnots} kn • ${selected.draftMeters}m</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">TEU Capacity</div>
+              <div class="inspector-stat-val">${selected.teuCapacity.toLocaleString()} TEU</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Destination ETA</div>
+              <div class="inspector-stat-val">${selected.eta}</div>
+            </div>
+          </div>
+          <div style="font-size:11px; color:var(--accent-cyan); font-weight:600; margin-top:4px;">
+            Route: ${selected.routeOrigin} ➔ ${selected.routeDestination}
+          </div>
+        `;
+      } else if (selected.type === 'air') {
+        typeBadge = `<span class="inspector-type-pill inspector-type-air">Air Cargo • ADS-B</span>`;
+        statsHtml = `
+          <div class="inspector-stat-grid">
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Flight & Transponder</div>
+              <div class="inspector-stat-val">${selected.callsign} • Active</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Altitude & Speed</div>
+              <div class="inspector-stat-val">${selected.altitudeFt.toLocaleString()} ft • ${selected.speedKnots} kts</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Air Payload</div>
+              <div class="inspector-stat-val">${(selected.cargoPayloadKg / 1000).toFixed(1)} MT</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Flight ETA</div>
+              <div class="inspector-stat-val">${selected.eta}</div>
+            </div>
+          </div>
+          <div style="font-size:11px; color:#c084fc; font-weight:600; margin-top:4px;">
+            Flight: ${selected.originIATA} ➔ ${selected.destIATA}
+          </div>
+        `;
+      } else if (selected.type === 'road') {
+        typeBadge = `<span class="inspector-type-pill inspector-type-road">Uber Haulage • Telematics</span>`;
+        statsHtml = `
+          <div class="inspector-stat-grid">
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Verified Driver</div>
+              <div class="inspector-stat-val">${selected.driverName.split(' ')[0]} ${selected.driverName.split(' ')[1] || ''}</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Road Speed</div>
+              <div class="inspector-stat-val">${selected.speedKmH} km/h</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">IoT Cargo Temp</div>
+              <div class="inspector-stat-val" style="color:var(--accent-emerald);">${selected.cargoTempC}°C</div>
+            </div>
+            <div class="inspector-stat-item">
+              <div class="inspector-stat-label">Corridor ETA</div>
+              <div class="inspector-stat-val">${selected.eta}</div>
+            </div>
+          </div>
+          <div style="font-size:11px; color:#34d399; font-weight:600; margin-top:4px;">
+            ${selected.sealStatus}
+          </div>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="inspector-header">
+          <div>
+            <div class="inspector-title">${selected.vesselName || selected.flightNumber || selected.truckPlate}</div>
+            <div style="font-size:10px; color:var(--text-tertiary);">${selected.carrier || selected.fleetName}</div>
+          </div>
+          ${typeBadge}
+        </div>
+        ${statsHtml}
+      `;
+    }
+
+    renderUberHaulageFleet() {
+      const container = document.getElementById('uber-haulage-panel');
+      if (!container || !this.store.multimodalFleet) return;
+
+      const trucks = this.store.multimodalFleet.filter(f => f.type === 'road');
+      container.innerHTML = trucks.map(t => `
+        <div class="uber-truck-card ${t.id === this.store.selectedFleetItemId ? 'selected' : ''}" onclick="window.TradeOS.selectFleetVehicle('${t.id}')">
+          <div class="uber-driver-row">
+            <div class="uber-driver-info">
+              <div class="uber-driver-avatar">🚛</div>
+              <div>
+                <strong style="color:#ffffff; font-size:13px;">${t.truckPlate}</strong>
+                <div style="font-size:11px; color:var(--text-secondary);">${t.driverName}</div>
+              </div>
+            </div>
+            <span class="badge-pill-emerald">${t.speedKmH} km/h</span>
+          </div>
+
+          <div class="uber-route-bar">
+            <div>
+              <span style="color:var(--text-tertiary); font-size:10px; display:block;">ORIGIN ➔ DESTINATION</span>
+              <span style="color:#ffffff; font-weight:600;">${t.routeOrigin.split(',')[0]} ➔ ${t.routeDestination.split(',')[0]}</span>
+            </div>
+            <div style="text-align:right;">
+              <span style="color:var(--text-tertiary); font-size:10px; display:block;">ESTIMATED ARRIVAL</span>
+              <span style="color:var(--accent-cyan); font-weight:700; font-family:var(--font-mono);">${t.eta}</span>
+            </div>
+          </div>
+
+          <div class="uber-telemetry-strip">
+            <span>Cargo: <strong style="color:#ffffff;">${t.cargoType}</strong></span>
+            <span>IoT Sensor: <strong style="color:var(--accent-emerald);">${t.cargoTempC}°C</strong></span>
+            <span>Battery: <strong style="color:#ffffff;">${t.uberTelemetry.batteryPct}%</strong></span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    selectFleetVehicle(id) {
+      this.store.selectFleetItem(id);
+      this.renderRadarInspectorCard();
+      this.renderUberHaulageFleet();
     }
 
     /* ------------------------------------------------------------------------
@@ -982,6 +1620,20 @@ Digital Signature:
       this.store.subscribe((event, data) => {
         if (event === 'WEBHOOK_LOGGED') {
           this.renderWebhookLogs();
+        } else if (event === 'CURRENCY_CHANGED') {
+          this.renderProducts();
+          this.renderVendorPriceWatch();
+          this.renderResellerHuntHub();
+          this.updateCalculatorUI();
+        } else if (event === 'LANGUAGE_CHANGED') {
+          this.applyTranslations();
+        } else if (event === 'FLEET_ITEM_SELECTED') {
+          this.renderRadarInspectorCard();
+          this.renderUberHaulageFleet();
+        } else if (event === 'FBT_UPDATED') {
+          this.renderFBTWarehouses();
+        } else if (event === 'PRODUCT_ADDED' || event === 'PRODUCT_DELETED' || event === 'STOCK_ADJUSTED' || event === 'CATALOG_BULK_IMPORTED') {
+          this.renderProducts();
         }
       });
     }

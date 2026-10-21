@@ -464,3 +464,348 @@
   margin-left: 6px;
 }
 
+/* ==========================================================================
+   SUPPLIER SUB-NAVIGATION & MODULE PANES
+   ========================================================================== */
+.supplier-subnav-pills {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: var(--sp-4) 0 var(--sp-6);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--sp-3);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.supplier-subnav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.supplier-subnav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.supplier-subnav-btn.active {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.badge-pill-cyan,
+.badge-pill-emerald,
+.badge-pill-amber {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+}
+
+.badge-pill-cyan {
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-pill-emerald {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-pill-amber {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent-amber);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.supplier-tab-pane {
+  display: block;
+}
+
+/* ==========================================================================
+   FULFILLED BY TRADEOS (FBT) BONDED WAREHOUSES
+   ========================================================================== */
+.fbt-header-banner,
+.pricewatch-header-banner,
+.hunt-header-banner {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.4) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.fbt-eyebrow,
+.pricewatch-eyebrow,
+.hunt-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+}
+
+.fbt-warehouses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-8);
+}
+
+.fbt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: all var(--transition-normal);
+}
+
+.fbt-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.fbt-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.fbt-city-flag {
+  font-size: 20px;
+}
+
+.fbt-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.fbt-stat-val {
+  font-weight: 600;
+  color: #ffffff;
+  font-family: var(--font-mono);
+}
+
+.fbt-capacity-wrap {
+  margin-top: 4px;
+}
+
+.fbt-capacity-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.fbt-capacity-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fbt-capacity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   VENDOR PRICING WATCH & LANDED COST INTELLIGENCE
+   ========================================================================== */
+.pricewatch-summary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+}
+
+.pricewatch-table-wrapper {
+  overflow-x: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+.pricewatch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.pricewatch-table th {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pricewatch-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+}
+
+.pricewatch-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.advantage-pill {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   PRODUCT HUNT & RESELLER HUB
+   ========================================================================== */
+.hunt-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: var(--sp-6);
+  margin-bottom: var(--sp-8);
+}
+
+.hunt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.hunt-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hunt-card-thumb {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #020305;
+  overflow: hidden;
+}
+
+.hunt-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hunt-card:hover .hunt-card-thumb img {
+  transform: scale(1.05);
+}
+
+.hunt-badge-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.hunt-margin-pill {
+  background: rgba(16, 185, 129, 0.9);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.hunt-oem-pill {
+  background: rgba(245, 158, 11, 0.9);
+  color: #0b0f17;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.hunt-card-content {
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  flex: 1;
+}
+
+.hunt-pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+}
+
+.hunt-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.hunt-card-actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border-hairline);
+}
+
+

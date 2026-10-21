@@ -985,3 +985,127 @@ button {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ==========================================================================
+   TOP GLOBAL TRADING CLOCKS & SOVEREIGN LOCALIZATION BAR
+   ========================================================================== */
+.top-utility-bar {
+  background: #04060a;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+  padding: 5px 0;
+  font-size: 11px;
+  position: relative;
+  z-index: 105;
+}
+
+.utility-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.world-clocks-ticker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+
+.world-clocks-ticker::-webkit-scrollbar {
+  display: none;
+}
+
+.clock-hub {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.clock-hub:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.hub-flag {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.hub-name {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 10.5px;
+}
+
+.hub-time {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-cyan);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+}
+
+.utility-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.locale-select-wrap,
+.currency-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 2px 6px;
+  color: var(--text-secondary);
+}
+
+.locale-select-wrap:focus-within,
+.currency-select-wrap:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+}
+
+.utility-select {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.utility-select option {
+  background: #0b0f17;
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .utility-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .utility-controls {
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
