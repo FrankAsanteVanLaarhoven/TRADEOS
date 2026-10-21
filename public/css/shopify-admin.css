@@ -44,7 +44,7 @@
 .store-name-text {
   font-size: var(--text-md);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .supplier-sync-stats {
@@ -91,7 +91,7 @@
 .view-mode-toggle {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-tertiary);
   padding: 3px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-hairline);
@@ -111,8 +111,8 @@
 }
 
 .view-toggle-btn.active {
-  background: var(--bg-tertiary);
-  color: #ffffff;
+  background: var(--bg-card);
+  color: var(--accent-cyan);
   border: 1px solid var(--border-subtle);
 }
 
@@ -132,7 +132,7 @@
 
 .rfq-match-text h4 {
   font-size: var(--text-md);
-  color: #ffffff;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
@@ -494,15 +494,15 @@
 }
 
 .supplier-subnav-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
 }
 
 .supplier-subnav-btn.active {
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.35);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+  background: var(--bg-card);
+  border-color: var(--border-accent);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
 }
 
 .badge-pill-cyan,

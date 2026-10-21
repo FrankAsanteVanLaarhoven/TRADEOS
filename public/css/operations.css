@@ -35,7 +35,7 @@
 .corridor-pill-btn.active {
   background: rgba(56, 189, 248, 0.12);
   border-color: var(--accent-cyan);
-  color: #ffffff;
+  color: var(--accent-cyan);
   box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
 }
 
@@ -106,7 +106,7 @@
 .corridor-bottom-item .val {
   font-size: var(--text-lg);
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 /* 9-Stage Verifiable Timeline */
@@ -211,7 +211,7 @@
 
 .step-title {
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: var(--text-sm);
 }
 
@@ -230,7 +230,7 @@
    End-to-End Corridor Telematics & Consignment Tracking Additions
    ========================================================================== */
 .consignment-search-bar {
-  background: rgba(11, 15, 23, 0.85);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: var(--sp-4) var(--sp-6);
@@ -273,7 +273,7 @@
 .preset-chip:hover, .preset-chip.active {
   background: rgba(56, 189, 248, 0.15);
   border-color: var(--accent-cyan);
-  color: #ffffff;
+  color: var(--accent-cyan);
 }
 
 /* Telematics Sensor HUD */
@@ -285,7 +285,7 @@
 }
 
 .telematics-card {
-  background: rgba(11, 15, 23, 0.8);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: var(--sp-4);
@@ -319,7 +319,7 @@
 .telematics-value {
   font-size: var(--text-md);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text-primary);
   font-family: var(--font-mono);
 }
 

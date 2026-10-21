@@ -875,6 +875,25 @@
     applyTheme(theme) {
       if (typeof document !== 'undefined' && document.documentElement) {
         document.documentElement.setAttribute('data-theme', theme);
+        const updateColorMode = () => {
+          if (this.currentTheme === 'system') {
+            const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-color-mode', isDark ? 'dark' : 'light');
+          } else {
+            document.documentElement.setAttribute('data-color-mode', this.currentTheme);
+          }
+        };
+        updateColorMode();
+
+        if (!this._themeMediaBound && typeof window !== 'undefined' && window.matchMedia) {
+          const media = window.matchMedia('(prefers-color-scheme: dark)');
+          if (media && media.addEventListener) {
+            media.addEventListener('change', () => {
+              if (this.currentTheme === 'system') updateColorMode();
+            });
+          }
+          this._themeMediaBound = true;
+        }
       }
     }
 
